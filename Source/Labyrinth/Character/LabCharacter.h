@@ -47,7 +47,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void IncreaseTorch(float Value) const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void ReduceTorch(float Value) const;
 
@@ -60,4 +60,6 @@ protected:
 
 public:
 	ALabCharacter();
+
+	FORCEINLINE USkeletalMeshComponent* GetFirstPersonMesh() const { return FirstPersonMeshComponent; }
 };

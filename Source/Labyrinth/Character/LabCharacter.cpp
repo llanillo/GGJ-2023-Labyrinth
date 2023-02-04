@@ -17,12 +17,15 @@ ALabCharacter::ALabCharacter()
 
 	DashForce = 50.f;
 
-	FirstPersonMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonMeshComponent"));
-	FirstPersonMeshComponent->SetCollisionResponseToAllChannels(ECR_Ignore); // TODO: Cambiar¿?¿
-	FirstPersonMeshComponent->SetupAttachment(RootComponent);
-
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(RootComponent);
+	CameraComponent->SetRelativeLocation({-10.f, 0.f, 60.f});
+	CameraComponent->bUsePawnControlRotation = true;
+
+	FirstPersonMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonMeshComponent"));
+	FirstPersonMeshComponent->SetCollisionResponseToAllChannels(ECR_Ignore); // TODO: Cambiar¿?¿
+	FirstPersonMeshComponent->SetupAttachment(CameraComponent);
+	FirstPersonMeshComponent->SetRelativeLocation({-30.f, 0.f, -150.f});
 
 	// TorchComponent = CreateDefaultSubobject<UTorchComponent>(TEXT("TorchComponent"));
 }
@@ -98,7 +101,7 @@ void ALabCharacter::EquipTorch(ATorch* Torch)
 	if (TorchComponent && Torch)
 	{
 		AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false);
-		TorchComponent->SetTorch(Torch);
+		TorchComponent->EquipTorch(Torch);
 	}
 }
 

@@ -35,7 +35,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DecreaseTorch(float Value);
 
-	FORCEINLINE void SetTorch(ATorch* NewTorch) { Torch = NewTorch; }
+	UFUNCTION(BlueprintCallable)
+	void EquipTorch(ATorch* NewTorch);
 
 protected:
 	virtual void BeginPlay() override;

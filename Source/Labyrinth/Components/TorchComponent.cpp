@@ -1,6 +1,9 @@
 ﻿#include "TorchComponent.h"
 
+#include "Engine/SkeletalMeshSocket.h"
+#include "Labyrinth/Character/LabCharacter.h"
 #include "Labyrinth/Core/LabGameMode.h"
+#include "Labyrinth/Pickups/Torch.h"
 
 UTorchComponent::UTorchComponent()
 {
@@ -37,5 +40,22 @@ void UTorchComponent::DecreaseTorch(const float Value)
 	if (ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
 	{
 		LabGameMode->GameOver();
+	}
+}
+
+void UTorchComponent::EquipTorch(ATorch* NewTorch)
+{
+	if (!NewTorch)
+	{
+		return;
+	}
+
+	if (const ALabCharacter* OwnerPawn = Cast<ALabCharacter>(GetOwner()))
+	{
+		Torch = NewTorch;
+		Torch->SetOwner(GetOwner());
+
+		const FAttachmentTransformRules AttachmentTransformRules = FAttachmentTransformRules::SnapToTargetIncludingScale;
+		Torch->AttachToComponent(OwnerPawn->GetFirstPersonMesh(), AttachmentTransformRules, "GripPoint");
 	}
 }
