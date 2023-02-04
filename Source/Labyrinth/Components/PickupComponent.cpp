@@ -8,17 +8,26 @@ UPickupComponent::UPickupComponent()
 	SphereRadius = 100.f;
 	UPrimitiveComponent::SetCollisionResponseToAllChannels(ECR_Ignore);
 	UPrimitiveComponent::SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	
-	OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnPickup);
+
+	OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnComponentOverlap);
+	OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnComponentFinishOverlap);
 }
 
-void UPickupComponent::OnPickup(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-                                int OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult)
+void UPickupComponent::OnComponentOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+                                          UPrimitiveComponent* OtherComp,
+                                          int OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult)
 {
-	if(ACharacter* Character = Cast<ACharacter>(OtherActor))
+	if (ACharacter* Character = Cast<ACharacter>(OtherActor))
 	{
-		OnPickupEvent.Broadcast(Character);
-		OnPickupEvent.RemoveAll(this);
-		SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		OnCharacterBeginOverlap.Broadcast(Character);
+	}
+}
+
+void UPickupComponent::OnComponentFinishOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+                                                UPrimitiveComponent* OtherComp, int OtherBodyIndex)
+{
+	if (ACharacter* Character = Cast<ACharacter>(OtherActor))
+	{
+		OnCharacterEndOverlap.Broadcast(Character);
 	}
 }

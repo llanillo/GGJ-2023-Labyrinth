@@ -15,7 +15,7 @@ void ALabHUD::BeginPlay()
 	Super::BeginPlay();
 	checkf(GameOverlayClass, TEXT("[ALabHUD - BeginPlay: GameOverlayClass is not valid]"));
 
-	GameOverlay = CreateWidget<UGameOverlay>(GetOwner(), GameOverlayClass);
+	GameOverlay = CreateWidget<UGameOverlay>(GetOwningPlayerController(), GameOverlayClass);
 	checkf(GameOverlay, TEXT("[ALabHUD - BeginPlay: GameOverlay is not valid]"));
 
 	GameOverlay->AddToViewport();
@@ -30,8 +30,15 @@ void ALabHUD::ShowInitialStory()
 {
 }
 
+void ALabHUD::HideMessage() const
+{
+	if(GameOverlay)
+	{
+		GameOverlay->HideMessage();
+	}
+}
 
-void ALabHUD::SetGameMessage(const FString& Message) const
+void ALabHUD::ShowMessage(const FString& Message) const
 {
 	if (GameOverlay)
 	{

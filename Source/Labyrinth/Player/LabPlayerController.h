@@ -30,6 +30,13 @@ class LABYRINTH_API ALabPlayerController : public APlayerController
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = true))
 	UInputAction* CrouchAction;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	void ShowMessageHUD(const FString& Message) const;
+
+	UFUNCTION(BlueprintCallable)
+	void HideMessageHUD() const;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -47,6 +54,6 @@ public:
 	FORCEINLINE UInputAction* GetLookAction() const { return LookAction; }
 
 	FORCEINLINE UInputAction* GetDashAction() const { return DashAction; }
-	
+
 	FORCEINLINE UInputAction* GetCrouchAction() const { return CrouchAction; }
 };

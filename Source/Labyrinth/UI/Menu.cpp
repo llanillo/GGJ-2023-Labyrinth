@@ -2,6 +2,8 @@
 #include "Menu.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "Labyrinth/Core/LabGameInstance.h"
+#include "Labyrinth/UI/CreditsOverlay.h"
 
 bool UMenu::Initialize()
 {
@@ -31,10 +33,19 @@ bool UMenu::Initialize()
 void UMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	if(CreditsOverlayClass)
+	{
+		CreditsOverlay = CreateWidget<UCreditsOverlay>(GetOwningPlayer(), CreditsOverlayClass);
+	}
 }
 
 void UMenu::OnStartButtonClicked()
 {
+	if (const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>())
+	{
+		UGameplayStatics::OpenLevel(this, LabGameInstance->GetLabLevelName());
+	}
 }
 
 void UMenu::OnCreditsButtonClicked()

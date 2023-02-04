@@ -5,12 +5,22 @@
 #include "Menu.generated.h"
 
 class UButton;
+class UCreditsOverlay;
 
 UCLASS()
 class LABYRINTH_API UMenu : public UUserWidget
 {
 	GENERATED_BODY()
 
+	/*
+	 * Dependencies
+	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	TSubclassOf<UCreditsOverlay> CreditsOverlayClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	UCreditsOverlay* CreditsOverlay;
+	
 	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* StartButton;
 

@@ -1,4 +1,7 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿#include "LabGameInstance.h"
 
-
-#include "LabGameInstance.h"
+ULabGameInstance::ULabGameInstance()
+{
+	WallTorchRechargeMessage = "Recharge Torch";
+	WallTorchLightUpeMessage = "Light up";
+}

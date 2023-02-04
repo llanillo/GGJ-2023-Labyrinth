@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "LabCharacter.generated.h"
 
+class AWallTorch;
 class UTorchComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
@@ -16,7 +17,9 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/* Hands mesh comopnent */
+	/*
+	 * Components
+	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	USkeletalMeshComponent* FirstPersonMeshComponent;
 
@@ -25,6 +28,17 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UTorchComponent* TorchComponent;
+
+	/*
+	 * Game
+	 */
+
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	AWallTorch* LastWallTorch;
+
+	/*
+	 * Dependencies
+	 */
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashForce;
@@ -51,6 +65,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ReduceTorch(float Value) const;
 
+	UFUNCTION(BlueprintCallable)
+	void SetLastWallTorch(AWallTorch* WallTorch);
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -62,4 +79,6 @@ public:
 	ALabCharacter();
 
 	FORCEINLINE USkeletalMeshComponent* GetFirstPersonMesh() const { return FirstPersonMeshComponent; }
+
+	FORCEINLINE AWallTorch* GetLastWallTorch() const { return LastWallTorch; }
 };

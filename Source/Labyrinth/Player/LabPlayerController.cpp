@@ -1,6 +1,8 @@
 ﻿#include "LabPlayerController.h"
 
+#include "EnhancedInput/Public/InputMappingContext.h"
 #include "EnhancedInputSubsystems.h"
+#include "Labyrinth/UI/LabHUD.h"
 
 ALabPlayerController::ALabPlayerController()
 {
@@ -8,6 +10,8 @@ ALabPlayerController::ALabPlayerController()
 }
 
 void ALabPlayerController::BeginPlay()
+
+
 {
 	Super::BeginPlay();
 
@@ -22,6 +26,7 @@ void ALabPlayerController::Tick(const float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+
 void ALabPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -33,4 +38,20 @@ void ALabPlayerController::SetupInputComponent()
 	{
 		Subsystem->AddMappingContext(InputMappingContext, 0);
 	}
+}
+
+void ALabPlayerController::ShowMessageHUD(const FString& Message) const
+{
+	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
+	checkf(LabHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
+
+	LabHUD->ShowMessage(Message);
+}
+
+void ALabPlayerController::HideMessageHUD() const
+{
+	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
+	checkf(LabHUD, TEXT("[ALabPlayerController - HideMessageHUD: HUD is not valid]"));
+
+	LabHUD->HideMessage();
 }

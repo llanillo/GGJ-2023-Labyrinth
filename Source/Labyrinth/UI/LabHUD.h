@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/HUD.h"
 #include "LabHUD.generated.h"
 
 class UGameOverlay;
 
 UCLASS()
-class LABYRINTH_API ALabHUD : public AActor
+class LABYRINTH_API ALabHUD : public AHUD
 {
 	GENERATED_BODY()
 
@@ -21,11 +21,14 @@ class LABYRINTH_API ALabHUD : public AActor
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetGameMessage(const FString& Message) const;
+	void ShowMessage(const FString& Message) const;
 
 	UFUNCTION(BlueprintCallable)
 	static void ShowInitialStory();
 
+	UFUNCTION(BlueprintCallable)
+	void HideMessage() const;
+	
 protected:
 	virtual void BeginPlay() override;
 
