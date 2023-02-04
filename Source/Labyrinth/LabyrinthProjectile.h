@@ -25,10 +25,6 @@ class ALabyrinthProjectile : public AActor
 public:
 	ALabyrinthProjectile();
 
-	/** called when projectile hits something */
-	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
 	/** Returns CollisionComp subobject **/
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
