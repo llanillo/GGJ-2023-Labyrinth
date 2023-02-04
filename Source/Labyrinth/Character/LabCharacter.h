@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "LabCharacter.generated.h"
 
+class UTorchComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
 
@@ -21,9 +22,19 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UCameraComponent* CameraComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	UTorchComponent* TorchComponent;
+
+	/* Used to pick up items */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	USphereComponent* SphereComponent;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashForce;
-	
+
+	/*
+	 * Character actions
+	 */
 	UFUNCTION(BlueprintCallable)
 	void Dash();
 
@@ -33,8 +44,21 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	UFUNCTION(BlueprintCallable)
 	void Look(const FInputActionValue& Value);
 
+	/*
+	 * Callbacks
+	 */
+
+	UFUNCTION(BlueprintCallable)
+	void OnActorBeginoverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                         UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bBFromSweep,
+	                         const FHitResult& SweepResult);
+
 public:
-	ALabCharacter();
+	UFUNCTION(BlueprintCallable)
+	void EquipTorch();
+
+	UFUNCTION(BlueprintCallable)
+	void ReduceTorch(float Value);
 
 protected:
 	virtual void BeginPlay() override;
@@ -42,4 +66,8 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+public:
+	ALabCharacter();
 };
+

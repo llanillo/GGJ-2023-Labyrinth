@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/Object.h"
+#include "Components/ActorComponent.h"
 #include "TorchComponent.generated.h"
 
 UCLASS(BlueprintType)
-class LABYRINTH_API UTorchComponent : public UObject
+class LABYRINTH_API UTorchComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -13,18 +13,29 @@ class LABYRINTH_API UTorchComponent : public UObject
 	USkeletalMeshComponent* TorchMeshComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	float MaxTorch;
+	float MaximumFire;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	float RemainingTorch;
+	float RemainingFire;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = truw))
+	float DecreaseAmount;
+	
+	UPROPERTY()
+	FTimerHandle DecreaseTorchHandle;
+	
 public:
 
 	UTorchComponent();
 
 	UFUNCTION(BlueprintCallable)
+	void IncreaseTorch(float Value);
+	
+	UFUNCTION(BlueprintCallable)
 	void DecreaseTorch(float Value);
 
+protected:
+	virtual void BeginPlay() override;
 };
 
 

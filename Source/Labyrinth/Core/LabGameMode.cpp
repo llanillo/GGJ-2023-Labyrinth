@@ -1,5 +1,8 @@
 ﻿#include "LabGameMode.h"
 
+#include "LabGameInstance.h"
+#include "Kismet/GameplayStatics.h"
+
 ALabGameMode::ALabGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -8,7 +11,6 @@ ALabGameMode::ALabGameMode()
 void ALabGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void ALabGameMode::Tick(const float DeltaTime)
@@ -18,6 +20,8 @@ void ALabGameMode::Tick(const float DeltaTime)
 
 void ALabGameMode::GameOver()
 {
-	// TODO
+	if (ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>())
+	{
+		UGameplayStatics::OpenLevel(this, LabGameInstance->GetMainMenuLevelName(), true);
+	}
 }
-
