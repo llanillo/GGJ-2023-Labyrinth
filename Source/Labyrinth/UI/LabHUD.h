@@ -6,16 +6,27 @@
 #include "GameFramework/Actor.h"
 #include "LabHUD.generated.h"
 
+class UGameOverlay;
+
 UCLASS()
 class LABYRINTH_API ALabHUD : public AActor
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	TSubclassOf<UGameOverlay> GameOverlayClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	UGameOverlay* GameOverlay;
+
+public:
 	UFUNCTION(BlueprintCallable)
-	void ShowInitialStory();
-	
+	void SetGameMessage(const FString& Message) const;
+
+	UFUNCTION(BlueprintCallable)
+	static void ShowInitialStory();
+
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;

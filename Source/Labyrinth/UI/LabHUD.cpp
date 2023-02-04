@@ -1,30 +1,41 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿#include "LabHUD.h"
 
+#include "Blueprint/UserWidget.h"
+#include "Labyrinth/UI/GameOverlay.h"
 
-#include "LabHUD.h"
-
-
-// Sets default values
 ALabHUD::ALabHUD()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+}
+
+// Called when the game starts or when spawned
+
+void ALabHUD::BeginPlay()
+{
+	Super::BeginPlay();
+	checkf(GameOverlayClass, TEXT("[ALabHUD - BeginPlay: GameOverlayClass is not valid]"));
+
+	GameOverlay = CreateWidget<UGameOverlay>(GetOwner(), GameOverlayClass);
+	checkf(GameOverlay, TEXT("[ALabHUD - BeginPlay: GameOverlay is not valid]"));
+
+	GameOverlay->AddToViewport();
+}
+
+void ALabHUD::Tick(const float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 }
 
 void ALabHUD::ShowInitialStory()
 {
 }
 
-// Called when the game starts or when spawned
-void ALabHUD::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
-// Called every frame
-void ALabHUD::Tick(float DeltaTime)
+void ALabHUD::SetGameMessage(const FString& Message) const
 {
-	Super::Tick(DeltaTime);
+	if (GameOverlay)
+	{
+		const FText MessageText = FText::FromString(Message);
+		GameOverlay->SetMessage(MessageText);
+	}
 }
-
