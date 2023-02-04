@@ -3,14 +3,17 @@
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Labyrinth/Components/TorchComponent.h"
 #include "Labyrinth/Pickups/FireTorchPickup.h"
+#include "Labyrinth/Pickups/Torch.h"
 #include "Labyrinth/Player/LabPlayerController.h"
 
 
 ALabCharacter::ALabCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
 	DashForce = 50.f;
 
@@ -21,12 +24,6 @@ ALabCharacter::ALabCharacter()
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(RootComponent);
 
-	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-	SphereComponent->SetSphereRadius(200.f);
-	SphereComponent->SetCollisionResponseToAllChannels(ECR_Overlap);
-	SphereComponent->SetupAttachment(RootComponent);
-
-	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnActorBeginoverlap);
 	// TorchComponent = CreateDefaultSubobject<UTorchComponent>(TEXT("TorchComponent"));
 }
 
@@ -57,16 +54,10 @@ void ALabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		                                   &ThisClass::Jump);
 		EnhancedInputComponent->BindAction(LabPlayerController->GetDashAction(), ETriggerEvent::Triggered, this,
 		                                   &ThisClass::Dash);
-	}
-}
-
-void ALabCharacter::OnActorBeginoverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                               UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bBFromSweep,
-                                               const FHitResult& SweepResult)
-{
-	if(AFireTorchPickup* FireTorchPickup = Cast<AFireTorchPickup>(OtherActor))
-	{
-		// TODOO
+		EnhancedInputComponent->BindAction(LabPlayerController->GetCrouchAction(), ETriggerEvent::Triggered, this,
+		                                   &ACharacter::Crouch, false);
+		EnhancedInputComponent->BindAction(LabPlayerController->GetCrouchAction(), ETriggerEvent::Completed, this,
+		                                   &ACharacter::UnCrouch, false);
 	}
 }
 
@@ -100,17 +91,26 @@ void ALabCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void ALabCharacter::EquipTorch()
+void ALabCharacter::EquipTorch(ATorch* Torch)
 {
 	TorchComponent = NewObject<UTorchComponent>(this, UTorchComponent::StaticClass(), TEXT("TorchComponent"));
 
-	if (TorchComponent)
+	if (TorchComponent && Torch)
 	{
 		AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false);
+		TorchComponent->SetTorch(Torch);
 	}
 }
 
-void ALabCharacter::ReduceTorch(const float Value)
+void ALabCharacter::IncreaseTorch(const float Value) const
+{
+	if (TorchComponent)
+	{
+		TorchComponent->IncreaseTorch(Value);
+	}
+}
+
+void ALabCharacter::ReduceTorch(const float Value) const
 {
 	if (TorchComponent)
 	{

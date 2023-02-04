@@ -29,14 +29,13 @@ void UTorchComponent::DecreaseTorch(const float Value)
 {
 	RemainingFire -= Value;
 
-	if(RemainingFire > 0.f)
+	if (RemainingFire > 0.f)
 	{
 		return;
 	}
 
-	if(ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
+	if (ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
 	{
 		LabGameMode->GameOver();
 	}
-	
 }

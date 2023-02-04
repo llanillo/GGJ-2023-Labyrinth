@@ -9,6 +9,7 @@
 class UTorchComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
+class USphereComponent;
 
 UCLASS()
 class LABYRINTH_API ALabCharacter : public ACharacter
@@ -25,10 +26,6 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UTorchComponent* TorchComponent;
 
-	/* Used to pick up items */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
-	USphereComponent* SphereComponent;
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashForce;
 
@@ -44,21 +41,15 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	UFUNCTION(BlueprintCallable)
 	void Look(const FInputActionValue& Value);
 
-	/*
-	 * Callbacks
-	 */
-
-	UFUNCTION(BlueprintCallable)
-	void OnActorBeginoverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	                         UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bBFromSweep,
-	                         const FHitResult& SweepResult);
-
 public:
 	UFUNCTION(BlueprintCallable)
-	void EquipTorch();
+	void EquipTorch(ATorch* Torch);
 
 	UFUNCTION(BlueprintCallable)
-	void ReduceTorch(float Value);
+	void IncreaseTorch(float Value) const;
+	
+	UFUNCTION(BlueprintCallable)
+	void ReduceTorch(float Value) const;
 
 protected:
 	virtual void BeginPlay() override;
@@ -70,4 +61,3 @@ protected:
 public:
 	ALabCharacter();
 };
-
