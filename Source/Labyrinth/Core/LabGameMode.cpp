@@ -7,11 +7,13 @@
 #include "Labyrinth/Character/WaveGoblin.h"
 #include "Labyrinth/Obtacle/CustomTriggerBox.h"
 #include "Labyrinth/Obtacle/EndWaveTriggerBox.h"
+#include "Labyrinth/Player/LabPlayerController.h"
 
 ALabGameMode::ALabGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	GameOverDelay = 3.f;
 	MinTimeToSpawnSecondLevel = 1.f;
 	MaxTimeToSpawnSecondLevel = 3.f;
 }
@@ -34,8 +36,6 @@ void ALabGameMode::BeginPlay()
 			GoblinSpawner = TriggerBox;
 		}
 	}
-
-	StartSecondLevelSpawn();
 }
 
 void ALabGameMode::Tick(const float DeltaTime)
@@ -43,12 +43,20 @@ void ALabGameMode::Tick(const float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ALabGameMode::StartSecondLevelSpawn()
+void ALabGameMode::StartGoblinWave()
 {
 	if (EndWaveTriggerBox && GoblinSpawner)
 	{
 		const float RandomTime = FMath::RandRange(MinTimeToSpawnSecondLevel, MaxTimeToSpawnSecondLevel);
 		GetWorldTimerManager().SetTimer(SecondLevelHandle, this, &ThisClass::OnGoblinSpawn, RandomTime);
+	}
+}
+
+void ALabGameMode::FinishGoblinWave()
+{
+	if (SecondLevelHandle.IsValid())
+	{
+		GetWorldTimerManager().ClearTimer(SecondLevelHandle);
 	}
 }
 
@@ -90,8 +98,23 @@ void ALabGameMode::OnGoblinSpawn()
 	}
 }
 
-void ALabGameMode::GameOver() const
+void ALabGameMode::GameOver()
 {
+	const ALabPlayerController* LocalController = Cast<ALabPlayerController>(
+		UGameplayStatics::GetPlayerController(this, 0));
+	check(LocalController);
+
+	LocalController->ShowGameOver();
+	GetWorldTimerManager().SetTimer(GameOverHandle, this, &ThisClass::OnGameOverTimeout, GameOverDelay);
+}
+
+void ALabGameMode::OnGameOverTimeout()
+{
+	if (GameOverHandle.IsValid())
+	{
+		GetWorldTimerManager().ClearTimer(GameOverHandle);
+	}
+
 	if (const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>())
 	{
 		UGameplayStatics::OpenLevel(this, LabGameInstance->GetMainMenuLevelName(), true);

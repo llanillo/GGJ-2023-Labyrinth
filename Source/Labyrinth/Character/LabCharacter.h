@@ -72,6 +72,9 @@ public:
 	void IncreaseTorch(int32 Value) const;
 
 	UFUNCTION(BlueprintCallable)
+	void ResetTorch() const;
+	
+	UFUNCTION(BlueprintCallable)
 	void ReduceTorch(int32 Value) const;
 
 	UFUNCTION(BlueprintCallable)

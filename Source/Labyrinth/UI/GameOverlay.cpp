@@ -10,6 +10,7 @@ void UGameOverlay::NativeConstruct()
 
 	MessageTextBlock->SetVisibility(ESlateVisibility::Hidden);
 	RemainingTorchTextBlock->SetVisibility(ESlateVisibility::Hidden);
+	GameOverText->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UGameOverlay::StartDamageIndicatorAnimation()
@@ -23,6 +24,11 @@ void UGameOverlay::StartDamageIndicatorAnimation()
 void UGameOverlay::OnFinishedDamageIndicatorAnimation()
 {
 	PlayAnimationReverse(DamageIndicatorAnim);
+}
+
+void UGameOverlay::ShowGameOver() const
+{
+	GameOverText->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UGameOverlay::SetRemainingTorchText(const FText& NewText) const

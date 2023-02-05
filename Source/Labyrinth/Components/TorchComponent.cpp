@@ -7,6 +7,8 @@
 
 UTorchComponent::UTorchComponent()
 {
+	PrimaryComponentTick.bCanEverTick = true;
+	
 	MaximumFire = 100;
 
 	RemainingFire = MaximumFire;
@@ -30,8 +32,10 @@ void UTorchComponent::IncreaseTorch(const int32 Value)
 {
 	if (bCanIncreaseTorch)
 	{
-		RemainingFire = FMath::Clamp(RemainingFire + Value, 0, MaximumFire);
+		// RemainingFire = FMath::Clamp(RemainingFire + Value, 0, MaximumFire);
+		RemainingFire += Value;
 		bCanIncreaseTorch = false;
+		UE_LOG(LogTemp, Warning, TEXT("increased %d"), RemainingFire);
 
 		GetWorld()->GetTimerManager().SetTimer(IncreaseTorchHandle, this, &ThisClass::OnIncreaseTorchTimeout,
 		                                       IncreaseTorchCooldown, false);
@@ -43,11 +47,11 @@ void UTorchComponent::OnIncreaseTorchTimeout()
 	//BUG?
 	//Aqui se elimina el timer de decrease, esto no esta mal?
 	//Se puede usar pause y unpause si la idea es detenerlo un momento...
-	if(DecreaseTorchHandle.IsValid())
+	if(IncreaseTorchHandle.IsValid())
 	{
-		GetWorld()->GetTimerManager().ClearTimer(DecreaseTorchHandle);
+		GetWorld()->GetTimerManager().ClearTimer(IncreaseTorchHandle);
 	}
-	
+
 	bCanIncreaseTorch = true;
 }
 
@@ -61,6 +65,7 @@ void UTorchComponent::DecreaseTorch(const int32 Value)
 	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(OwnerCharacter->Controller);
 	checkf(LabPlayerController, TEXT("[UTorchComponent - DecreaseTorch: PlayerController is not valid]"));
 
+	UE_LOG(LogTemp, Warning, TEXT("decreased %d"), RemainingFire);
 	LabPlayerController->ShowRemainingTorch(FString::FromInt(RemainingFire));
 
 	if (RemainingFire > 0.f)
@@ -68,7 +73,7 @@ void UTorchComponent::DecreaseTorch(const int32 Value)
 		return;
 	}
 
-	if (const ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
+	if (ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
 	{
 		LabGameMode->GameOver();
 	}

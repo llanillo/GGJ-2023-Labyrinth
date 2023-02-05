@@ -36,6 +36,14 @@ void ALabHUD::HideMessage() const
 	}
 }
 
+void ALabHUD::ShowGameOver() const
+{
+	if(GameOverlay)
+	{
+		GameOverlay->ShowGameOver();
+	}
+}
+
 void ALabHUD::ShowMessage(const FString& Message) const
 {
 	if (GameOverlay)

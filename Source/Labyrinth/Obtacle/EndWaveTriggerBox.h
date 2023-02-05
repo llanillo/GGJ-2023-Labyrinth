@@ -4,6 +4,9 @@
 #include "Engine/TriggerBox.h"
 #include "EndWaveTriggerBox.generated.h"
 
+/*
+ * Objective box where goblins are going to
+ */
 UCLASS()
 class LABYRINTH_API AEndWaveTriggerBox : public ATriggerBox
 {

@@ -6,13 +6,15 @@
 
 class ACharacter;
 
+/*
+ * Reloads player's torch bar
+ */
 UCLASS(ClassGroup=LAB)
 class LABYRINTH_API AFireTorchPickup : public AObtainable
 {
 	GENERATED_BODY()
 
-	UPROPERTY
-	(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	UPROPERTY (EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	float RechargeValue;
 
 protected:

@@ -28,7 +28,7 @@ class LABYRINTH_API UTorchComponent : public UActorComponent
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	int32 IncreaseTorchCooldown;
-	
+
 	UPROPERTY()
 	FTimerHandle DecreaseTorchHandle;
 
@@ -37,6 +37,9 @@ class LABYRINTH_API UTorchComponent : public UActorComponent
 
 	UFUNCTION()
 	void OnIncreaseTorchTimeout();
+
+protected:
+	virtual void BeginPlay() override;
 
 public:
 	UTorchComponent();
@@ -50,6 +53,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EquipTorch(ATorch* NewTorch);
 
-protected:
-	virtual void BeginPlay() override;
+	FORCEINLINE void ResetRemainingFire() { RemainingFire = 100; }
 };

@@ -110,9 +110,9 @@ void ALabCharacter::Interact()
 	{
 		const ELightStatus WallTorchStatus = WallTorch->GetWallTorchStatus();
 
-		if (WallTorchStatus == ELightStatus::Els_On)
+	if (WallTorchStatus == ELightStatus::Els_On)
 		{
-			IncreaseTorch(100);
+			ResetTorch();
 		}
 		else if (WallTorchStatus == ELightStatus::Els_Off)
 		{
@@ -151,6 +151,14 @@ void ALabCharacter::IncreaseTorch(const int32 Value) const
 	if (TorchComponent)
 	{
 		TorchComponent->IncreaseTorch(Value);
+	}
+}
+
+void ALabCharacter::ResetTorch() const
+{
+	if (TorchComponent)
+	{
+		TorchComponent->ResetRemainingFire();
 	}
 }
 

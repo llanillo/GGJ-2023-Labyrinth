@@ -20,6 +20,9 @@ class LABYRINTH_API UGameOverlay : public UUserWidget
 	UTextBlock* RemainingTorchTextBlock;
 
 	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
+	UTextBlock* GameOverText;
+	
+	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UImage* DamageIndicatorImage;
 
 	UPROPERTY(BlueprintReadOnly, Category = UI, Transient, meta = (BindWidgetAnim, AllowPrivateAccess = true))
@@ -33,11 +36,14 @@ public:
 	void OnFinishedDamageIndicatorAnimation();
 
 	UFUNCTION(BlueprintCallable)
+	void ShowGameOver() const;
+
+	UFUNCTION(BlueprintCallable)
 	void SetMessage(const FText& NewText) const;
 
 	UFUNCTION(BlueprintCallable)
 	void SetRemainingTorchText(const FText& NewText) const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void HideMessage() const;
 

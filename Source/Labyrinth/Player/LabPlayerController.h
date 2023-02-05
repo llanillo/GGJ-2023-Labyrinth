@@ -36,10 +36,13 @@ class LABYRINTH_API ALabPlayerController : public APlayerController
 public:
 	UFUNCTION(BlueprintCallable)
 	void ShowMessageHUD(const FString& Message) const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void ShowRemainingTorch(const FString& RemainingTorch) const;
 
+	UFUNCTION(BlueprintCallable)
+	void ShowGameOver() const;
+	
 	UFUNCTION(BlueprintCallable)
 	void HideMessageHUD() const;
 

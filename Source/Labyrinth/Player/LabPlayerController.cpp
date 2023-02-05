@@ -56,6 +56,14 @@ void ALabPlayerController::ShowRemainingTorch(const FString& RemainingTorch) con
 	LabHUD->ShowRemainingText(RemainingTorch);
 }
 
+void ALabPlayerController::ShowGameOver() const
+{
+	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
+	checkf(LabHUD, TEXT("[ALabPlayerController - ShowRemainingTorch: HUD is not valid]"));
+
+	LabHUD->ShowGameOver();
+}
+
 void ALabPlayerController::HideMessageHUD() const
 {
 	const ALabHUD* LabHUD = GetHUD<ALabHUD>();

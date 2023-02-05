@@ -15,8 +15,8 @@ class LABYRINTH_API ALabGameMode : public AGameModeBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	TSubclassOf<AWaveGoblin> WaveGoblinClass;
-	
-	UPROPERTY (BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	ACustomTriggerBox* GoblinSpawner;
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
@@ -28,20 +28,33 @@ class LABYRINTH_API ALabGameMode : public AGameModeBase
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float MaxTimeToSpawnSecondLevel;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	float GameOverDelay;
+
 	UPROPERTY()
 	FTimerHandle SecondLevelHandle;
+
+	UPROPERTY()
+	FTimerHandle GameOverHandle;
 
 	/*
 	 * Callbacks
 	 */
+	UFUNCTION()
 	void OnGoblinSpawn();
+
+	UFUNCTION()
+	void OnGameOverTimeout() ;
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void StartSecondLevelSpawn();
+	void StartGoblinWave();
 
 	UFUNCTION(BlueprintCallable)
-	void GameOver() const;
+	void FinishGoblinWave();
+
+	UFUNCTION(BlueprintCallable)
+	void GameOver() ;
 
 protected:
 	virtual void BeginPlay() override;
