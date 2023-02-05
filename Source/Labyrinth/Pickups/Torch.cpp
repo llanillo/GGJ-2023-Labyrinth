@@ -20,8 +20,7 @@ void ATorch::Tick(const float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-
-void ATorch::SetFireLevel(EFireLevel FireLevel)
+void ATorch::SetFireLevel(const EFireLevel FireLevel)
 {
 	if (UNiagaraComponent* FireNiagaraComponent = GetFireParticleSystem())
 	{
@@ -46,9 +45,9 @@ void ATorch::SetFireLevel(EFireLevel FireLevel)
 	}
 }
 
-void ATorch::OnPickup(ACharacter* CharacterWhoPickup)
+void ATorch::OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup)
 {
-	Super::OnPickup(CharacterWhoPickup);
+	Super::OnCharacterBeginOverlap(CharacterWhoPickup);
 	
 	if (ALabCharacter* LabCharacter = Cast<ALabCharacter>(CharacterWhoPickup))
 	{

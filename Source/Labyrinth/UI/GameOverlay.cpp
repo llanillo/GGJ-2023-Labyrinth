@@ -4,6 +4,13 @@
 #include "Components/Image.h"
 #include "Animation/WidgetAnimation.h"
 
+void UGameOverlay::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	MessageTextBlock->SetVisibility(ESlateVisibility::Hidden);
+}
+
 void UGameOverlay::StartDamageIndicatorAnimation()
 {
 	if (!IsAnimationPlaying(DamageIndicatorAnim))

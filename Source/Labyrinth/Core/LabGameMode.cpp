@@ -22,23 +22,23 @@ void ALabGameMode::BeginPlay()
 
 	checkf(SecondLevelGoblinClass, TEXT("[ALabGameMode - BeginPlay: SecondLevelGoblinClass is not valid]"));
 
-	for (TActorIterator<ACustomTriggerBox> It(GetWorld()); It; ++It)
+	for (TActorIterator<ATriggerBox> It(GetWorld()); It; ++It)
 	{
 		if (AEndWaveTriggerBox* TriggerBox = Cast<AEndWaveTriggerBox>(*It))
 		{
 			EndWaveTriggerBox = TriggerBox;
 		}
 
-		if ((*It)->GetTag().IsEqual(ACustomTriggerBox::SpawnName))
+		if (ACustomTriggerBox* TriggerBox = Cast<ACustomTriggerBox>(*It))
 		{
-			GoblinSpawner = *It;
+			GoblinSpawner = TriggerBox;
 		}
 	}
 
-	checkf(EndWaveTriggerBox, TEXT("[ALabGameMode - BeginPlay: SecondLevelSpawnTrigger is not valid]"));
-	checkf(GoblinSpawner, TEXT("[ALabGameMode - BeginPlay: SecondLevelSpawnTrigger is not valid]"));
-
-	StartSecondLevelSpawn();
+	// checkf(EndWaveTriggerBox, TEXT("[ALabGameMode - BeginPlay: EndWaveTriggerBox is not valid]"));
+	// checkf(GoblinSpawner, TEXT("[ALabGameMode - BeginPlay: GoblinSpawner is not valid]"));
+	//
+	// StartSecondLevelSpawn();
 }
 
 void ALabGameMode::Tick(const float DeltaTime)

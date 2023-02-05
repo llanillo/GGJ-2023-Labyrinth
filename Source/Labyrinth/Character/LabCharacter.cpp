@@ -6,6 +6,7 @@
 #include "Labyrinth/Components/TorchComponent.h"
 #include "Labyrinth/Core/LabGameInstance.h"
 #include "Labyrinth/Environment/WallTorch.h"
+#include "Labyrinth/Pickups/FireTorchPickup.h"
 #include "Labyrinth/Pickups/Torch.h"
 #include "Labyrinth/Player/LabPlayerController.h"
 
@@ -27,7 +28,6 @@ ALabCharacter::ALabCharacter()
 	FirstPersonMeshComponent->SetupAttachment(CameraComponent);
 	FirstPersonMeshComponent->SetRelativeLocation({-30.f, 0.f, -150.f});
 
-	// TorchComponent = CreateDefaultSubobject<UTorchComponent>(TEXT("TorchComponent"));
 }
 
 void ALabCharacter::BeginPlay()
@@ -61,6 +61,8 @@ void ALabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		                                   &ACharacter::Crouch, false);
 		EnhancedInputComponent->BindAction(LabPlayerController->GetCrouchAction(), ETriggerEvent::Completed, this,
 		                                   &ACharacter::UnCrouch, false);
+		EnhancedInputComponent->BindAction(LabPlayerController->GetPickupAction(), ETriggerEvent::Triggered, this,
+		                                   &ThisClass::Pickup);
 	}
 }
 
@@ -91,6 +93,14 @@ void ALabCharacter::Look(const FInputActionValue& Value)
 	{
 		AddControllerYawInput(LookVector.X);
 		AddControllerPitchInput(LookVector.Y);
+	}
+}
+
+void ALabCharacter::Pickup()
+{
+	if (FireTorchPickup && TorchComponent)
+	{
+		IncreaseTorch(FireTorchPickup->GetRechargeValue());
 	}
 }
 
@@ -145,6 +155,23 @@ void ALabCharacter::SetWallTorch(AWallTorch* WallTorch)
 	else
 	{
 		LastWallTorch = nullptr;
+		LabPlayerController->HideMessageHUD();
+	}
+}
+
+void ALabCharacter::SetPickup(AFireTorchPickup* TorchPickup)
+{
+	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller);
+	checkf(LabPlayerController, TEXT("[ALabCharacter - SetPickup: PlayerController is not valid]"));
+
+	if (TorchPickup)
+	{
+		FireTorchPickup = TorchPickup;
+		LabPlayerController->ShowMessageHUD("Pick up to recharge torch");
+	}
+	else
+	{
+		FireTorchPickup = nullptr;
 		LabPlayerController->HideMessageHUD();
 	}
 }

@@ -20,8 +20,10 @@ protected:
 	/*
 	 * Callbacks
 	 */
-	virtual void OnPickup(ACharacter* CharacterWhoPickup) override;
+	virtual void OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup) override;
 
+	virtual void OnCharacterEndOverlap(ACharacter* CharacterWhoPickup) override;
+	
 public:
 	AFireTorchPickup();
 

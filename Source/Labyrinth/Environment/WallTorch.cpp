@@ -16,8 +16,11 @@ AWallTorch::AWallTorch()
 	MeshComponent->SetupAttachment(RootComponent);
 
 	PickupComponent = CreateDefaultSubobject<UPickupComponent>(TEXT("SphereComponent"));
+	PickupComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+	PickupComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	PickupComponent->OnCharacterBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchBeginOverlap);
 	PickupComponent->OnCharacterBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchBeginOverlap);
+	PickupComponent->SetupAttachment(RootComponent);
 }
 
 void AWallTorch::BeginPlay()

@@ -11,6 +11,7 @@ class LABYRINTH_API ACustomTriggerBox : public ATriggerBox
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	FName Tag;
 
 public:

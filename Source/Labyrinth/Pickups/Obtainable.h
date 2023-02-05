@@ -35,7 +35,10 @@ protected:
 	 * Callbacks
 	 */
 	UFUNCTION()
-	virtual void OnPickup(ACharacter* CharacterWhoPickup);
+	virtual void OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup);
+
+	UFUNCTION()
+	virtual void OnCharacterEndOverlap(ACharacter* CharacterWhoPickup);
 
 public:
 	// Sets default values for this actor's properties

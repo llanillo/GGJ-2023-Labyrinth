@@ -7,6 +7,7 @@
 #include "LabCharacter.generated.h"
 
 class AWallTorch;
+class AFireTorchPickup;
 class UTorchComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
@@ -36,6 +37,8 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	AWallTorch* LastWallTorch;
 
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	AFireTorchPickup* FireTorchPickup;
 	/*
 	 * Dependencies
 	 */
@@ -55,6 +58,9 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	UFUNCTION(BlueprintCallable)
 	void Look(const FInputActionValue& Value);
 
+	UFUNCTION(BlueprintCallable)
+	void Pickup();
+
 public:
 	UFUNCTION(BlueprintCallable)
 	void EquipTorch(ATorch* Torch);
@@ -67,6 +73,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetWallTorch(AWallTorch* WallTorch);
+
+	UFUNCTION(BlueprintCallable)
+	void SetPickup(AFireTorchPickup* TorchPickup);
 
 protected:
 	virtual void BeginPlay() override;

@@ -4,5 +4,5 @@ ACustomTriggerBox::ACustomTriggerBox()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	Tag = "GoblinSpawner";
+	Tag = SpawnName;
 }

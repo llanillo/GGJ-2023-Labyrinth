@@ -6,6 +6,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterOverlap, ACharacter*, CharacterWhoPickup);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterEndOverlap, ACharacter*, CharacterWhoPickup);
+
 UCLASS(ClassGroup=(LAB), meta=(BlueprintSpawnableComponent))
 class LABYRINTH_API UPickupComponent : public USphereComponent
 {
@@ -30,5 +32,6 @@ public:
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnCharacterOverlap OnCharacterBeginOverlap;
 
-	FOnCharacterOverlap OnCharacterEndOverlap;
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnCharacterEndOverlap OnCharacterEndOverlap;
 };

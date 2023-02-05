@@ -6,8 +6,6 @@
 UPickupComponent::UPickupComponent()
 {
 	SphereRadius = 100.f;
-	UPrimitiveComponent::SetCollisionResponseToAllChannels(ECR_Ignore);
-	UPrimitiveComponent::SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
 	OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnComponentOverlap);
 	OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnComponentFinishOverlap);

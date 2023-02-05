@@ -3,15 +3,27 @@
 #include "GameFramework/Character.h"
 #include "Labyrinth/Character/LabCharacter.h"
 
-AFireTorchPickup::AFireTorchPickup()
+AFireTorchPickup::AFireTorchPickup(): Super()
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AFireTorchPickup::OnPickup(ACharacter* CharacterWhoPickup)
+void AFireTorchPickup::OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup)
 {
-	if (const ALabCharacter* LabCharacter = Cast<ALabCharacter>(CharacterWhoPickup))
+	Super::OnCharacterBeginOverlap(CharacterWhoPickup);
+
+	if (ALabCharacter* LabCharacter = Cast<ALabCharacter>(CharacterWhoPickup))
 	{
-		LabCharacter->IncreaseTorch(RechargeValue);
+		LabCharacter->SetPickup(this);
+	}
+}
+
+void AFireTorchPickup::OnCharacterEndOverlap(ACharacter* CharacterWhoPickup)
+{
+	Super::OnCharacterEndOverlap(CharacterWhoPickup);
+
+	if (ALabCharacter* LabCharacter = Cast<ALabCharacter>(CharacterWhoPickup))
+	{
+		LabCharacter->SetPickup(nullptr);
 	}
 }

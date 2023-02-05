@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "Obtainable.h"
-#include "GameFramework/Actor.h"
 #include "Torch.generated.h"
 
 class UStaticMeshComponent;
@@ -35,7 +34,7 @@ protected:
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void OnPickup(ACharacter* CharacterWhoPickup) override;
+	virtual void OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup) override;
 public:
 	// Sets default values for this actor's properties
 	ATorch();

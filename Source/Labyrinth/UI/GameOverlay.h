@@ -34,4 +34,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void HideMessage() const;
+	
+protected:
+
+	virtual void NativeConstruct() override;
 };
