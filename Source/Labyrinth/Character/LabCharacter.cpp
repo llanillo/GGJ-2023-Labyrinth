@@ -34,6 +34,11 @@ ALabCharacter::ALabCharacter()
 void ALabCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	const FInputModeGameOnly InputModeGameOnly;
+
+	APlayerController* PlayerController = Cast<APlayerController>(Controller);
+	PlayerController->SetInputMode(InputModeGameOnly);
 }
 
 void ALabCharacter::Tick(const float DeltaTime)
