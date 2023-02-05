@@ -129,6 +129,8 @@ void ALabCharacter::EquipTorch(ATorch* Torch)
 	{
 		AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false);
 		TorchComponent->EquipTorch(Torch);
+
+		BP_UpdateTorchAnimation();
 	}
 }
 

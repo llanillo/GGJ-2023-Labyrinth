@@ -65,6 +65,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EquipTorch(ATorch* Torch);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_UpdateTorchAnimation();
+
 	UFUNCTION(BlueprintCallable)
 	void IncreaseTorch(int32 Value) const;
 
