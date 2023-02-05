@@ -40,6 +40,9 @@ void UTorchComponent::IncreaseTorch(const int32 Value)
 
 void UTorchComponent::OnIncreaseTorchTimeout()
 {
+	//BUG?
+	//Aqui se elimina el timer de decrease, esto no esta mal?
+	//Se puede usar pause y unpause si la idea es detenerlo un momento...
 	if(DecreaseTorchHandle.IsValid())
 	{
 		GetWorld()->GetTimerManager().ClearTimer(DecreaseTorchHandle);

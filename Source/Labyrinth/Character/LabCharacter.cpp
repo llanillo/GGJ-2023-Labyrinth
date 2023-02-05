@@ -123,11 +123,23 @@ void ALabCharacter::Interact()
 
 void ALabCharacter::EquipTorch(ATorch* Torch)
 {
-	TorchComponent = NewObject<UTorchComponent>(this, UTorchComponent::StaticClass(), TEXT("TorchComponent"));
+	//Aqui estas creando dos veces el TorchComponent, una con NewObject y otra con AddComponentByClass,
+	//dejo comentado el codigo viejo
+	/*TorchComponent = NewObject<UTorchComponent>(this, UTorchComponent::StaticClass(), TEXT("TorchComponent"));
 
 	if (TorchComponent && Torch)
 	{
 		AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false);
+		TorchComponent->EquipTorch(Torch);
+
+		BP_UpdateTorchAnimation();
+	}*/
+
+	TorchComponent = Cast<UTorchComponent>(AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false));
+	AddInstanceComponent(TorchComponent);
+	
+	if (TorchComponent && Torch)
+	{
 		TorchComponent->EquipTorch(Torch);
 
 		BP_UpdateTorchAnimation();
