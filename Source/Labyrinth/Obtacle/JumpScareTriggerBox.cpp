@@ -18,6 +18,7 @@ void AJumpScareTriggerBox::OnTriggerBeginOverlap(UPrimitiveComponent* Overlapped
 		if(ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(LabCharacter->Controller))
 		{
 			LabPlayerController->ShowJumpScare();
+			GetCollisionComponent()->OnComponentBeginOverlap.RemoveAll(this);
 		}
 	}
 }
