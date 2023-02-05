@@ -43,9 +43,21 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	/*
 	 * Dependencies
 	 */
+	UPROPERTY()
+	FTimerHandle DashHandle;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	float DashCooldown;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashForce;
 
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	bool bCanDash;
+
+	UFUNCTION()
+	void OnDashTimeout();
+	
 	/*
 	 * Character actions
 	 */
@@ -73,7 +85,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ResetTorch() const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void ReduceTorch(int32 Value) const;
 

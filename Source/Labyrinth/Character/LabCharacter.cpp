@@ -16,7 +16,9 @@ ALabCharacter::ALabCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
-	DashForce = 50.f;
+	DashForce = 600.f;
+	DashCooldown = 3.f;
+	bCanDash = true;
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(RootComponent);
@@ -65,11 +67,30 @@ void ALabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 }
 
+void ALabCharacter::OnDashTimeout()
+{
+
+	if(DashHandle.IsValid())
+	{
+		GetWorldTimerManager().ClearTimer(DashHandle);
+	}
+	
+	bCanDash = true;
+}
+
 void ALabCharacter::Dash()
 {
-	if (Controller)
+	if (Controller && bCanDash)
 	{
-		LaunchCharacter(GetActorForwardVector() * DashForce, true, false);
+		bCanDash = false;
+		UE_LOG(LogTemp, Warning, TEXT("DASH"));
+		
+		FVector MovementDirection = GetLastMovementInputVector();
+		MovementDirection.Normalize();
+		
+		LaunchCharacter(MovementDirection *  DashForce, false, false);
+
+		GetWorldTimerManager().SetTimer(DashHandle, this, &ThisClass::OnDashTimeout, DashCooldown);
 	}
 }
 
