@@ -10,8 +10,6 @@ ALabPlayerController::ALabPlayerController()
 }
 
 void ALabPlayerController::BeginPlay()
-
-
 {
 	Super::BeginPlay();
 
@@ -19,6 +17,8 @@ void ALabPlayerController::BeginPlay()
 	checkf(JumpAction, TEXT("[ALabPlayerController - BeginPlay: JumpAction is not valid]"));
 	checkf(MoveAction, TEXT("[ALabPlayerController - BeginPlay: MoveAction is not valid]"));
 	checkf(DashAction, TEXT("[ALabPlayerController - BeginPlay: DashAction is not valid]"));
+	checkf(CrouchAction, TEXT("[ALabPlayerController - BeginPlay: CrouchAction is not valid]"));
+	checkf(InteractAction, TEXT("[ALabPlayerController - BeginPlay: InteractAction is not valid]"));
 }
 
 void ALabPlayerController::Tick(const float DeltaTime)

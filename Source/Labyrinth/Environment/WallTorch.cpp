@@ -12,7 +12,7 @@ AWallTorch::AWallTorch()
 	
 	FireNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("NiagaraComponent"));
 	FireNiagaraComponent->SetupAttachment(RootComponent);
-	FireNiagaraComponent->Deactivate();
+	FireNiagaraComponent->SetAutoActivate(false);
 
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -40,14 +40,7 @@ void AWallTorch::LightUp()
 {
 	CurrentLightStatus = ELightStatus::Els_On;
 	FireNiagaraComponent->Activate();
-}
-
-void AWallTorch::RechargeTorch()
-{
-	if (CurrentLightStatus != ELightStatus::Els_On)
-	{
-		return;
-	}
+	UE_LOG(LogTemp, Warning, TEXT("[AWallTorch - LightUp: Torch light up]"));
 }
 
 void AWallTorch::OnWallTorchBeginOverlap(ACharacter* CharacterWhoPickup)

@@ -60,8 +60,8 @@ void ALabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		                                   &ACharacter::Crouch, false);
 		EnhancedInputComponent->BindAction(LabPlayerController->GetCrouchAction(), ETriggerEvent::Completed, this,
 		                                   &ACharacter::UnCrouch, false);
-		EnhancedInputComponent->BindAction(LabPlayerController->GetPickupAction(), ETriggerEvent::Triggered, this,
-		                                   &ThisClass::Pickup);
+		EnhancedInputComponent->BindAction(LabPlayerController->GetInteractAction(), ETriggerEvent::Triggered, this,
+		                                   &ThisClass::Interact);
 	}
 }
 
@@ -95,11 +95,29 @@ void ALabCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void ALabCharacter::Pickup()
+void ALabCharacter::Interact()
 {
-	if (FireTorchPickup && TorchComponent)
+	if (!TorchComponent)
+	{
+		return;
+	}
+
+	if (FireTorchPickup)
 	{
 		IncreaseTorch(FireTorchPickup->GetRechargeValue());
+	}
+	else if (WallTorch)
+	{
+		const ELightStatus WallTorchStatus = WallTorch->GetWallTorchStatus();
+
+		if (WallTorchStatus == ELightStatus::Els_On)
+		{
+			IncreaseTorch(100);
+		}
+		else if (WallTorchStatus == ELightStatus::Els_Off)
+		{
+			WallTorch->LightUp();
+		}
 	}
 }
 
@@ -114,7 +132,7 @@ void ALabCharacter::EquipTorch(ATorch* Torch)
 	}
 }
 
-void ALabCharacter::IncreaseTorch(const float Value) const
+void ALabCharacter::IncreaseTorch(const int32 Value) const
 {
 	if (TorchComponent)
 	{
@@ -122,7 +140,7 @@ void ALabCharacter::IncreaseTorch(const float Value) const
 	}
 }
 
-void ALabCharacter::ReduceTorch(const float Value) const
+void ALabCharacter::ReduceTorch(const int32 Value) const
 {
 	if (TorchComponent)
 	{
@@ -130,30 +148,25 @@ void ALabCharacter::ReduceTorch(const float Value) const
 	}
 }
 
-void ALabCharacter::SetWallTorch(AWallTorch* WallTorch)
+void ALabCharacter::SetWallTorch(AWallTorch* NewWallTorch)
 {
 	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller);
 	checkf(LabPlayerController, TEXT("[ALabCharacter - SetWallTorch: PlayerController is not valid]"));
+
+	WallTorch = NewWallTorch;
 
 	if (WallTorch)
 	{
 		const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>();
 		checkf(LabGameInstance, TEXT("[ALabCharacter - SetWallTorch: GameInstance is not valid]"));
 
-		if (WallTorch->GetWallTorchStatus() == ELightStatus::Els_On)
-		{
-			LastWallTorch = WallTorch;
-			LabPlayerController->ShowMessageHUD(LabGameInstance->GetWallTorchRechargeMessage());
-		}
-		else
-		{
-			LastWallTorch = WallTorch;
-			LabPlayerController->ShowMessageHUD(LabGameInstance->GetWallTorchLightUpMessage());
-		}
+		const FString ShowMessage = NewWallTorch->GetWallTorchStatus() == ELightStatus::Els_On
+			                            ? LabGameInstance->GetWallTorchRechargeMessage()
+			                            : LabGameInstance->GetWallTorchLightUpMessage();
+		LabPlayerController->ShowMessageHUD(ShowMessage);
 	}
 	else
 	{
-		LastWallTorch = nullptr;
 		LabPlayerController->HideMessageHUD();
 	}
 }
@@ -164,7 +177,7 @@ void ALabCharacter::SetPickup(AFireTorchPickup* TorchPickup)
 	checkf(LabPlayerController, TEXT("[ALabCharacter - SetPickup: PlayerController is not valid]"));
 
 	FireTorchPickup = TorchPickup;
-	
+
 	if (FireTorchPickup)
 	{
 		LabPlayerController->ShowMessageHUD("Pick up to recharge torch");

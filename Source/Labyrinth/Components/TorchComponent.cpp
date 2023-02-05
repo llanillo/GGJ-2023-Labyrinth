@@ -1,6 +1,5 @@
 ﻿#include "TorchComponent.h"
 
-#include "Engine/SkeletalMeshSocket.h"
 #include "Labyrinth/Character/LabCharacter.h"
 #include "Labyrinth/Core/LabGameMode.h"
 #include "Labyrinth/Pickups/Torch.h"
@@ -8,10 +7,12 @@
 
 UTorchComponent::UTorchComponent()
 {
-	MaximumFire = 100.f;
+	MaximumFire = 100;
 
 	RemainingFire = MaximumFire;
 	DecreaseAmount = 1;
+	bCanIncreaseTorch = true;
+	IncreaseTorchCooldown = 3;
 }
 
 void UTorchComponent::BeginPlay()
@@ -27,7 +28,24 @@ void UTorchComponent::BeginPlay()
 
 void UTorchComponent::IncreaseTorch(const int32 Value)
 {
-	RemainingFire = FMath::Clamp(RemainingFire + Value, 0.f, MaximumFire);
+	if (bCanIncreaseTorch)
+	{
+		RemainingFire = FMath::Clamp(RemainingFire + Value, 0, MaximumFire);
+		bCanIncreaseTorch = false;
+
+		GetWorld()->GetTimerManager().SetTimer(IncreaseTorchHandle, this, &ThisClass::OnIncreaseTorchTimeout,
+		                                       IncreaseTorchCooldown, false);
+	}
+}
+
+void UTorchComponent::OnIncreaseTorchTimeout()
+{
+	if(DecreaseTorchHandle.IsValid())
+	{
+		GetWorld()->GetTimerManager().ClearTimer(DecreaseTorchHandle);
+	}
+	
+	bCanIncreaseTorch = true;
 }
 
 void UTorchComponent::DecreaseTorch(const int32 Value)

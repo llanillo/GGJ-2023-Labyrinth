@@ -31,7 +31,7 @@ class LABYRINTH_API ALabPlayerController : public APlayerController
 	UInputAction* CrouchAction;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = true))
-	UInputAction* PickupAction;
+	UInputAction* InteractAction;
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -63,5 +63,5 @@ public:
 
 	FORCEINLINE UInputAction* GetCrouchAction() const { return CrouchAction; }
 
-	FORCEINLINE UInputAction* GetPickupAction() const { return PickupAction; }
+	FORCEINLINE UInputAction* GetInteractAction() const { return InteractAction; }
 };

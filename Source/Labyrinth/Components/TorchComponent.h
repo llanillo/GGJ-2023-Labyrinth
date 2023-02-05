@@ -11,10 +11,10 @@ class LABYRINTH_API UTorchComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	ATorch* Torch;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	int32 MaximumFire;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
@@ -23,8 +23,20 @@ class LABYRINTH_API UTorchComponent : public UActorComponent
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = truw))
 	int32 DecreaseAmount;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = truw))
+	bool bCanIncreaseTorch;
+
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	int32 IncreaseTorchCooldown;
+	
 	UPROPERTY()
 	FTimerHandle DecreaseTorchHandle;
+
+	UPROPERTY()
+	FTimerHandle IncreaseTorchHandle;
+
+	UFUNCTION()
+	void OnIncreaseTorchTimeout();
 
 public:
 	UTorchComponent();

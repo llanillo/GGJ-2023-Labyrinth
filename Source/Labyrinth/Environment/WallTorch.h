@@ -23,7 +23,7 @@ class LABYRINTH_API AWallTorch : public AActor
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	USceneComponent* RootSceneComponent;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UNiagaraComponent* FireNiagaraComponent;
 
@@ -33,7 +33,7 @@ class LABYRINTH_API AWallTorch : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UPickupComponent* PickupComponent;
 
-	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	UPROPERTY (BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	ELightStatus CurrentLightStatus;
 
 	UFUNCTION()
@@ -45,9 +45,6 @@ class LABYRINTH_API AWallTorch : public AActor
 public:
 	UFUNCTION(BlueprintCallable)
 	void LightUp();
-
-	UFUNCTION(BlueprintCallable)
-	void RechargeTorch();
 
 protected:
 	virtual void BeginPlay() override;

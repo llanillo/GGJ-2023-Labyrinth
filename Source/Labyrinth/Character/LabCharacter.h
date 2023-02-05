@@ -35,11 +35,11 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	 */
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	AWallTorch* LastWallTorch;
+	AWallTorch* WallTorch;
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	AFireTorchPickup* FireTorchPickup;
-	
+
 	/*
 	 * Dependencies
 	 */
@@ -59,20 +59,20 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	void Look(const FInputActionValue& Value);
 
 	UFUNCTION(BlueprintCallable)
-	void Pickup();
+	void Interact();
 
 public:
 	UFUNCTION(BlueprintCallable)
 	void EquipTorch(ATorch* Torch);
 
 	UFUNCTION(BlueprintCallable)
-	void IncreaseTorch(float Value) const;
+	void IncreaseTorch(int32 Value) const;
 
 	UFUNCTION(BlueprintCallable)
-	void ReduceTorch(float Value) const;
+	void ReduceTorch(int32 Value) const;
 
 	UFUNCTION(BlueprintCallable)
-	void SetWallTorch(AWallTorch* WallTorch);
+	void SetWallTorch(AWallTorch* NewWallTorch);
 
 	UFUNCTION(BlueprintCallable)
 	void SetPickup(AFireTorchPickup* TorchPickup);
@@ -89,5 +89,5 @@ public:
 
 	FORCEINLINE USkeletalMeshComponent* GetFirstPersonMesh() const { return FirstPersonMeshComponent; }
 
-	FORCEINLINE AWallTorch* GetLastWallTorch() const { return LastWallTorch; }
+	FORCEINLINE AWallTorch* GetLastWallTorch() const { return WallTorch; }
 };
