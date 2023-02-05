@@ -26,6 +26,13 @@ AWallTorch::AWallTorch()
 	PickupComponent->OnCharacterBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchBeginOverlap);
 	PickupComponent->OnCharacterEndOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchEndOverlap);
 	PickupComponent->SetupAttachment(RootComponent);
+
+	PointLightComponent = CreateDefaultSubobject<UPointLightComponent>(TEXT("PointLightComponent"));
+	PointLightComponent->SetIntensity(3.0f);
+	PointLightComponent->AttenuationRadius = 300.0f;
+	PointLightComponent->SetUseTemperature(true);
+	PointLightComponent->Temperature = 4000.0f;
+	PointLightComponent->SetupAttachment(RootComponent);
 }
 
 void AWallTorch::BeginPlay()
@@ -42,6 +49,9 @@ void AWallTorch::LightUp()
 {
 	CurrentLightStatus = ELightStatus::Els_On;
 	FireNiagaraComponent->Activate();
+
+	//Turn on point light
+	PointLightComponent->SetVisibility(true);
 }
 
 void AWallTorch::OnWallTorchBeginOverlap(ACharacter* CharacterWhoPickup)
