@@ -21,8 +21,11 @@ class LABYRINTH_API ALabHUD : public AHUD
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void ShowGameOver() const;
+	void ShowJumpScare() const;
 	
+	UFUNCTION(BlueprintCallable)
+	void ShowGameOver() const;
+
 	UFUNCTION(BlueprintCallable)
 	void ShowMessage(const FString& Message) const;
 

@@ -60,7 +60,7 @@ void UTorchComponent::DecreaseTorch(const int32 Value)
 	const ACharacter* OwnerCharacter = GetOwner<ACharacter>();
 	checkf(OwnerCharacter, TEXT("[UTorchComponent - DecreaseTorch: Character is not valid]"));
 
-	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(OwnerCharacter->Controller);
+	ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(OwnerCharacter->Controller);
 	checkf(LabPlayerController, TEXT("[UTorchComponent - DecreaseTorch: PlayerController is not valid]"));
 
 	UE_LOG(LogTemp, Warning, TEXT("decreased %d"), RemainingFire);

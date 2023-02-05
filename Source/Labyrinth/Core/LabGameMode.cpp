@@ -5,7 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Labyrinth/Character/WaveGoblin.h"
-#include "Labyrinth/Obtacle/CustomTriggerBox.h"
+#include "Labyrinth/Obtacle/SpawnTriggerBox.h"
 #include "Labyrinth/Obtacle/EndWaveTriggerBox.h"
 #include "Labyrinth/Player/LabPlayerController.h"
 
@@ -31,7 +31,7 @@ void ALabGameMode::BeginPlay()
 			EndWaveTriggerBox = TriggerBox;
 		}
 
-		if (ACustomTriggerBox* TriggerBox = Cast<ACustomTriggerBox>(*It))
+		if (ASpawnTriggerBox* TriggerBox = Cast<ASpawnTriggerBox>(*It))
 		{
 			GoblinSpawner = TriggerBox;
 		}
@@ -100,7 +100,7 @@ void ALabGameMode::OnGoblinSpawn()
 
 void ALabGameMode::GameOver()
 {
-	const ALabPlayerController* LocalController = Cast<ALabPlayerController>(
+	ALabPlayerController* LocalController = Cast<ALabPlayerController>(
 		UGameplayStatics::GetPlayerController(this, 0));
 	check(LocalController);
 

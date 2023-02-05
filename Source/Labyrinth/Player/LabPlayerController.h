@@ -6,11 +6,15 @@
 
 class UInputMappingContext;
 class UInputAction;
+class ALabHUD;
 
 UCLASS()
 class LABYRINTH_API ALabPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = true))
+	ALabHUD* GameHUD;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = true))
 	UInputMappingContext* InputMappingContext;
@@ -35,16 +39,19 @@ class LABYRINTH_API ALabPlayerController : public APlayerController
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void ShowMessageHUD(const FString& Message) const;
+	void ShowJumpScare();
 
 	UFUNCTION(BlueprintCallable)
-	void ShowRemainingTorch(const FString& RemainingTorch) const;
+	void ShowMessageHUD(const FString& Message);
 
 	UFUNCTION(BlueprintCallable)
-	void ShowGameOver() const;
-	
+	void ShowRemainingTorch(const FString& RemainingTorch);
+
 	UFUNCTION(BlueprintCallable)
-	void HideMessageHUD() const;
+	void ShowGameOver();
+
+	UFUNCTION(BlueprintCallable)
+	void HideMessageHUD();
 
 protected:
 	virtual void BeginPlay() override;

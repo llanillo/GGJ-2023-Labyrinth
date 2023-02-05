@@ -2,25 +2,20 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Menu.generated.h"
+#include "Delegates/DelegateCombinations.h"
+#include "Delegates/DelegateCombinations.h"
+#include "MenuOverlay.generated.h"
 
 class UButton;
 class UCreditsOverlay;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCreditsButtonClicked);
+
 UCLASS()
-class LABYRINTH_API UMenu : public UUserWidget
+class LABYRINTH_API UMenuOverlay : public UUserWidget
 {
 	GENERATED_BODY()
 
-	/*
-	 * Dependencies
-	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
-	TSubclassOf<UCreditsOverlay> CreditsOverlayClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
-	UCreditsOverlay* CreditsOverlay;
-	
 	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* StartButton;
 
@@ -40,6 +35,9 @@ class LABYRINTH_API UMenu : public UUserWidget
 	void OnQuitButtonClicked();
 
 public:
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnCreditsButtonClicked OnCreditsClicked;
+	
 	virtual bool Initialize() override;
 
 	virtual void NativeConstruct() override;

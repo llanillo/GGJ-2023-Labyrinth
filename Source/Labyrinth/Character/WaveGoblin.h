@@ -5,7 +5,7 @@
 #include "WaveGoblin.generated.h"
 
 class UBoxComponent;
-class ACustomTriggerBox;
+class ASpawnTriggerBox;
 
 UCLASS(ClassGroup=LAB)
 class LABYRINTH_API AWaveGoblin : public ACharacter

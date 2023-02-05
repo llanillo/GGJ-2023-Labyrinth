@@ -19,5 +19,5 @@ bool UCreditsOverlay::Initialize()
 
 void UCreditsOverlay::OnBackButtonClicked()
 {
-	RemoveFromParent();
+	OnBackClicked.Broadcast();
 }

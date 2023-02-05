@@ -40,34 +40,42 @@ void ALabPlayerController::SetupInputComponent()
 	}
 }
 
-void ALabPlayerController::ShowMessageHUD(const FString& Message) const
+void ALabPlayerController::ShowJumpScare()
 {
-	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
-	checkf(LabHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
+	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
+	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
 
-	LabHUD->ShowMessage(Message);
+	GameHUD->ShowJumpScare();
 }
 
-void ALabPlayerController::ShowRemainingTorch(const FString& RemainingTorch) const
+void ALabPlayerController::ShowMessageHUD(const FString& Message)
 {
-	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
-	checkf(LabHUD, TEXT("[ALabPlayerController - ShowRemainingTorch: HUD is not valid]"));
+	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
+	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
 
-	LabHUD->ShowRemainingText(RemainingTorch);
+	GameHUD->ShowMessage(Message);
 }
 
-void ALabPlayerController::ShowGameOver() const
+void ALabPlayerController::ShowRemainingTorch(const FString& RemainingTorch)
 {
-	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
-	checkf(LabHUD, TEXT("[ALabPlayerController - ShowRemainingTorch: HUD is not valid]"));
+	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
+	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
 
-	LabHUD->ShowGameOver();
+	GameHUD->ShowRemainingText(RemainingTorch);
 }
 
-void ALabPlayerController::HideMessageHUD() const
+void ALabPlayerController::ShowGameOver()
 {
-	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
-	checkf(LabHUD, TEXT("[ALabPlayerController - HideMessageHUD: HUD is not valid]"));
+	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
+	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
 
-	LabHUD->HideMessage();
+	GameHUD->ShowGameOver();
+}
+
+void ALabPlayerController::HideMessageHUD()
+{
+	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
+	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
+
+	GameHUD->HideMessage();
 }

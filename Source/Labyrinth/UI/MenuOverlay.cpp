@@ -1,11 +1,11 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
-#include "Menu.h"
+#include "MenuOverlay.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 #include "Labyrinth/Core/LabGameInstance.h"
 #include "Labyrinth/UI/CreditsOverlay.h"
 
-bool UMenu::Initialize()
+bool UMenuOverlay::Initialize()
 {
 	if (!Super::Initialize())
 	{
@@ -30,17 +30,12 @@ bool UMenu::Initialize()
 	return true;
 }
 
-void UMenu::NativeConstruct()
+void UMenuOverlay::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	if(CreditsOverlayClass)
-	{
-		CreditsOverlay = CreateWidget<UCreditsOverlay>(GetOwningPlayer(), CreditsOverlayClass);
-	}
 }
 
-void UMenu::OnStartButtonClicked()
+void UMenuOverlay::OnStartButtonClicked()
 {
 	if (const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>())
 	{
@@ -48,11 +43,12 @@ void UMenu::OnStartButtonClicked()
 	}
 }
 
-void UMenu::OnCreditsButtonClicked()
+void UMenuOverlay::OnCreditsButtonClicked()
 {
+	OnCreditsClicked.Broadcast();
 }
 
-void UMenu::OnQuitButtonClicked()
+void UMenuOverlay::OnQuitButtonClicked()
 {
 	UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Quit, false);
 }

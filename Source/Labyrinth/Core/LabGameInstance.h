@@ -4,7 +4,7 @@
 #include "Engine/GameInstance.h"
 #include "LabGameInstance.generated.h"
 
-class ACustomTriggerBox;
+class ASpawnTriggerBox;
 
 UCLASS(BlueprintType)
 class LABYRINTH_API ULabGameInstance : public UGameInstance

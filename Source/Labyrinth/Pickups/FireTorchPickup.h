@@ -7,25 +7,24 @@
 class ACharacter;
 
 /*
- * Reloads player's torch bar
+ * Add's fuel to player's torch
  */
 UCLASS(ClassGroup=LAB)
 class LABYRINTH_API AFireTorchPickup : public AObtainable
 {
 	GENERATED_BODY()
 
-	UPROPERTY (EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	float RechargeValue;
 
 protected:
-
 	/*
 	 * Callbacks
 	 */
 	virtual void OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup) override;
 
 	virtual void OnCharacterEndOverlap(ACharacter* CharacterWhoPickup) override;
-	
+
 public:
 	AFireTorchPickup();
 

@@ -21,19 +21,31 @@ class LABYRINTH_API UGameOverlay : public UUserWidget
 
 	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UTextBlock* GameOverText;
-	
+
 	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UImage* DamageIndicatorImage;
+
+	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
+	UImage* JumpScareImage;
+	
+	UPROPERTY(BlueprintReadOnly, Category = UI, Transient, meta = (BindWidgetAnim, AllowPrivateAccess = true))
+	UWidgetAnimation* JumpScareAnim;
 
 	UPROPERTY(BlueprintReadOnly, Category = UI, Transient, meta = (BindWidgetAnim, AllowPrivateAccess = true))
 	UWidgetAnimation* DamageIndicatorAnim;
 
+	UFUNCTION()
+	void OnDamageIndicatorAnimFinished();
+	
+	UFUNCTION()
+	void OnJumpScareAnimFinished();
+	
 public:
 	UFUNCTION(BlueprintCallable)
 	void StartDamageIndicatorAnimation();
 
 	UFUNCTION(BlueprintCallable)
-	void OnFinishedDamageIndicatorAnimation();
+	void StartJumpScareAnimation();
 
 	UFUNCTION(BlueprintCallable)
 	void ShowGameOver() const;
@@ -48,5 +60,5 @@ public:
 	void HideMessage() const;
 
 protected:
-	virtual void NativeConstruct() override;
+	virtual bool Initialize() override;
 };

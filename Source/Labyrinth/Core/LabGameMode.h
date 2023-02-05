@@ -4,7 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "LabGameMode.generated.h"
 
-class ACustomTriggerBox;
+class ASpawnTriggerBox;
 class AWaveGoblin;
 class AEndWaveTriggerBox;
 
@@ -17,7 +17,7 @@ class LABYRINTH_API ALabGameMode : public AGameModeBase
 	TSubclassOf<AWaveGoblin> WaveGoblinClass;
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	ACustomTriggerBox* GoblinSpawner;
+	ASpawnTriggerBox* GoblinSpawner;
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	AEndWaveTriggerBox* EndWaveTriggerBox;
@@ -64,5 +64,5 @@ protected:
 public:
 	ALabGameMode();
 
-	FORCEINLINE ACustomTriggerBox* GetSecondLevelSpawnTrigger() const { return GoblinSpawner; }
+	FORCEINLINE ASpawnTriggerBox* GetSecondLevelSpawnTrigger() const { return GoblinSpawner; }
 };

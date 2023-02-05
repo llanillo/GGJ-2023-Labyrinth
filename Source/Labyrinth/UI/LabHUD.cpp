@@ -36,11 +36,19 @@ void ALabHUD::HideMessage() const
 	}
 }
 
+void ALabHUD::ShowJumpScare() const
+{
+	if (GameOverlay)
+	{
+		GameOverlay->StartJumpScareAnimation();
+	}
+}
+
 void ALabHUD::ShowGameOver() const
 {
-	if(GameOverlay)
+	if (GameOverlay)
 	{
-		GameOverlay->ShowGameOver();
+		GameOverlay->StartJumpScareAnimation();
 	}
 }
 

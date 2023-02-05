@@ -2,6 +2,6 @@
 
 ULabGameInstance::ULabGameInstance()
 {
-	WallTorchRechargeMessage = "Recharge Torch";
-	WallTorchLightUpeMessage = "Light up";
+	WallTorchRechargeMessage = "[E] - Recharge Torch";
+	WallTorchLightUpeMessage = "[E] - Light up";
 }
