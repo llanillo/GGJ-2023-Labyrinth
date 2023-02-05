@@ -7,6 +7,9 @@ AWallTorch::AWallTorch()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	RootSceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootSceneComponent"));
+	RootComponent = RootSceneComponent;
+	
 	FireNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("NiagaraComponent"));
 	FireNiagaraComponent->SetupAttachment(RootComponent);
 	FireNiagaraComponent->Deactivate();
@@ -19,7 +22,7 @@ AWallTorch::AWallTorch()
 	PickupComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	PickupComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	PickupComponent->OnCharacterBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchBeginOverlap);
-	PickupComponent->OnCharacterBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchBeginOverlap);
+	PickupComponent->OnCharacterEndOverlap.AddUniqueDynamic(this, &ThisClass::OnWallTorchEndOverlap);
 	PickupComponent->SetupAttachment(RootComponent);
 }
 

@@ -21,6 +21,9 @@ class LABYRINTH_API AWallTorch : public AActor
 {
 	GENERATED_BODY()
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	USceneComponent* RootSceneComponent;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UNiagaraComponent* FireNiagaraComponent;
 

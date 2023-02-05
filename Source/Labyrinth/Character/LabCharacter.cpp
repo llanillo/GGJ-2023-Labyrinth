@@ -134,12 +134,12 @@ void ALabCharacter::ReduceTorch(const float Value) const
 void ALabCharacter::SetWallTorch(AWallTorch* WallTorch)
 {
 	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller);
-	checkf(LabPlayerController, TEXT("[ALabCharacter - SetLastWallTorch: PlayerController is not valid]"));
+	checkf(LabPlayerController, TEXT("[ALabCharacter - SetWallTorch: PlayerController is not valid]"));
 
 	if (WallTorch)
 	{
 		const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>();
-		checkf(LabGameInstance, TEXT("[ALabCharacter - SetLastWallTorch: GameInstance is not valid]"));
+		checkf(LabGameInstance, TEXT("[ALabCharacter - SetWallTorch: GameInstance is not valid]"));
 
 		if (WallTorch->GetWallTorchStatus() == ELightStatus::Els_On)
 		{
