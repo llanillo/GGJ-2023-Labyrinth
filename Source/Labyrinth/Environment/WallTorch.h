@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "Components/PointLightComponent.h"
 #include "GameFramework/Actor.h"
 #include "WallTorch.generated.h"
 
@@ -32,6 +33,9 @@ class LABYRINTH_API AWallTorch : public AActor
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UPickupComponent* PickupComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	UPointLightComponent* PointLightComponent;
 
 	UPROPERTY (BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	ELightStatus CurrentLightStatus;
