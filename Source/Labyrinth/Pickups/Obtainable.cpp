@@ -17,7 +17,6 @@ AObtainable::AObtainable()
 	PickupComponent = CreateDefaultSubobject<UPickupComponent>(TEXT("PickupComponent"));
 	PickupComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	PickupComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-
 	PickupComponent->OnCharacterBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnCharacterBeginOverlap);
 	PickupComponent->OnCharacterEndOverlap.AddUniqueDynamic(this, &ThisClass::OnCharacterEndOverlap);
 	PickupComponent->SetupAttachment(RootComponent);
@@ -28,7 +27,7 @@ void AObtainable::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AObtainable::Tick(float DeltaTime)
+void AObtainable::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }

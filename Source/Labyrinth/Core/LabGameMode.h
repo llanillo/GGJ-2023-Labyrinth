@@ -5,7 +5,7 @@
 #include "LabGameMode.generated.h"
 
 class ACustomTriggerBox;
-class ASecondLevelGoblin;
+class AWaveGoblin;
 class AEndWaveTriggerBox;
 
 UCLASS(BlueprintType)
@@ -14,7 +14,7 @@ class LABYRINTH_API ALabGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	TSubclassOf<ASecondLevelGoblin> SecondLevelGoblinClass;
+	TSubclassOf<AWaveGoblin> WaveGoblinClass;
 	
 	UPROPERTY (BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	ACustomTriggerBox* GoblinSpawner;

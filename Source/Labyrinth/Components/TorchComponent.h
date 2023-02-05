@@ -15,13 +15,13 @@ class LABYRINTH_API UTorchComponent : public UActorComponent
 	ATorch* Torch;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	float MaximumFire;
+	int32 MaximumFire;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	float RemainingFire;
+	int32 RemainingFire;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = truw))
-	float DecreaseAmount;
+	int32 DecreaseAmount;
 
 	UPROPERTY()
 	FTimerHandle DecreaseTorchHandle;
@@ -30,10 +30,10 @@ public:
 	UTorchComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void IncreaseTorch(float Value);
+	void IncreaseTorch(int32 Value);
 
 	UFUNCTION(BlueprintCallable)
-	void DecreaseTorch(float Value);
+	void DecreaseTorch(int32 Value);
 
 	UFUNCTION(BlueprintCallable)
 	void EquipTorch(ATorch* NewTorch);

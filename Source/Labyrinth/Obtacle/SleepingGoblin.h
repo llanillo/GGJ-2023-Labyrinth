@@ -18,10 +18,17 @@ class LABYRINTH_API ASleepingGoblin : public AGoblin
 	UPROPERTY(BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	ALabCharacter* LabCharacter;
 
+	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	bool bCanFollow;
+
 	UFUNCTION()
 	void OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	                          AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	                          int OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                        UPrimitiveComponent* OtherComp, int OtherBodyIndex);
 
 protected:
 	virtual void BeginPlay() override;

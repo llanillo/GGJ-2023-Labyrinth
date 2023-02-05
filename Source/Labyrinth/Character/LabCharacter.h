@@ -39,10 +39,10 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	AFireTorchPickup* FireTorchPickup;
+	
 	/*
 	 * Dependencies
 	 */
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashForce;
 

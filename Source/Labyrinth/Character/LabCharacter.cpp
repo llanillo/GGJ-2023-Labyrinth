@@ -27,7 +27,6 @@ ALabCharacter::ALabCharacter()
 	FirstPersonMeshComponent->SetCollisionResponseToAllChannels(ECR_Ignore); // TODO: Cambiar¿?¿
 	FirstPersonMeshComponent->SetupAttachment(CameraComponent);
 	FirstPersonMeshComponent->SetRelativeLocation({-30.f, 0.f, -150.f});
-
 }
 
 void ALabCharacter::BeginPlay()
@@ -164,14 +163,14 @@ void ALabCharacter::SetPickup(AFireTorchPickup* TorchPickup)
 	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller);
 	checkf(LabPlayerController, TEXT("[ALabCharacter - SetPickup: PlayerController is not valid]"));
 
-	if (TorchPickup)
+	FireTorchPickup = TorchPickup;
+	
+	if (FireTorchPickup)
 	{
-		FireTorchPickup = TorchPickup;
 		LabPlayerController->ShowMessageHUD("Pick up to recharge torch");
 	}
 	else
 	{
-		FireTorchPickup = nullptr;
 		LabPlayerController->HideMessageHUD();
 	}
 }

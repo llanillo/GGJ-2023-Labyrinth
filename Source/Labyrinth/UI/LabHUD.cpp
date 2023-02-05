@@ -30,7 +30,7 @@ void ALabHUD::ShowInitialStory()
 
 void ALabHUD::HideMessage() const
 {
-	if(GameOverlay)
+	if (GameOverlay)
 	{
 		GameOverlay->HideMessage();
 	}
@@ -42,5 +42,14 @@ void ALabHUD::ShowMessage(const FString& Message) const
 	{
 		const FText MessageText = FText::FromString(Message);
 		GameOverlay->SetMessage(MessageText);
+	}
+}
+
+void ALabHUD::ShowRemainingText(const FString& Message) const
+{
+	if (GameOverlay)
+	{
+		const FText TorchText = FText::FromString(Message);
+		GameOverlay->SetRemainingTorchText(TorchText);
 	}
 }

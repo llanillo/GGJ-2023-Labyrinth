@@ -48,6 +48,14 @@ void ALabPlayerController::ShowMessageHUD(const FString& Message) const
 	LabHUD->ShowMessage(Message);
 }
 
+void ALabPlayerController::ShowRemainingTorch(const FString& RemainingTorch) const
+{
+	const ALabHUD* LabHUD = GetHUD<ALabHUD>();
+	checkf(LabHUD, TEXT("[ALabPlayerController - ShowRemainingTorch: HUD is not valid]"));
+
+	LabHUD->ShowRemainingText(RemainingTorch);
+}
+
 void ALabPlayerController::HideMessageHUD() const
 {
 	const ALabHUD* LabHUD = GetHUD<ALabHUD>();

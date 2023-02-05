@@ -4,12 +4,14 @@
 #include "Labyrinth/Character/LabCharacter.h"
 #include "Labyrinth/Core/LabGameMode.h"
 #include "Labyrinth/Pickups/Torch.h"
+#include "Labyrinth/Player/LabPlayerController.h"
 
 UTorchComponent::UTorchComponent()
 {
 	MaximumFire = 100.f;
 
 	RemainingFire = MaximumFire;
+	DecreaseAmount = 1;
 }
 
 void UTorchComponent::BeginPlay()
@@ -23,14 +25,22 @@ void UTorchComponent::BeginPlay()
 	GetWorld()->GetTimerManager().SetTimer(DecreaseTorchHandle, TorchDecreaseDelegate, 1.f, true);
 }
 
-void UTorchComponent::IncreaseTorch(const float Value)
+void UTorchComponent::IncreaseTorch(const int32 Value)
 {
 	RemainingFire = FMath::Clamp(RemainingFire + Value, 0.f, MaximumFire);
 }
 
-void UTorchComponent::DecreaseTorch(const float Value)
+void UTorchComponent::DecreaseTorch(const int32 Value)
 {
 	RemainingFire -= Value;
+
+	const ACharacter* OwnerCharacter = GetOwner<ACharacter>();
+	checkf(OwnerCharacter, TEXT("[UTorchComponent - DecreaseTorch: Character is not valid]"));
+
+	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(OwnerCharacter->Controller);
+	checkf(LabPlayerController, TEXT("[UTorchComponent - DecreaseTorch: PlayerController is not valid]"));
+
+	LabPlayerController->ShowRemainingTorch(FString::FromInt(RemainingFire));
 
 	if (RemainingFire > 0.f)
 	{
@@ -55,7 +65,8 @@ void UTorchComponent::EquipTorch(ATorch* NewTorch)
 		Torch = NewTorch;
 		Torch->SetOwner(GetOwner());
 
-		const FAttachmentTransformRules AttachmentTransformRules = FAttachmentTransformRules::SnapToTargetIncludingScale;
+		const FAttachmentTransformRules AttachmentTransformRules =
+			FAttachmentTransformRules::SnapToTargetIncludingScale;
 		Torch->AttachToComponent(OwnerPawn->GetFirstPersonMesh(), AttachmentTransformRules, "GripPoint");
 	}
 }

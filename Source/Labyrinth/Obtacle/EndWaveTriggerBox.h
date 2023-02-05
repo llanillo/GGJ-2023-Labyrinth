@@ -10,12 +10,10 @@ class LABYRINTH_API AEndWaveTriggerBox : public ATriggerBox
 	GENERATED_BODY()
 
 	UFUNCTION()
-	void OnActorOverlap(AActor* OverlappedActor, AActor* OtherActor);
-
-protected:
-	virtual void BeginPlay() override;
-
-	virtual void Tick(float DeltaTime) override;
+	void OnTriggerBoxOverlap(UPrimitiveComponent*
+	                         OverlappedComponent, AActor* OtherActor, UPrimitiveComponent*
+	                         OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+	                         const FHitResult& SweepResult);
 
 public:
 	// Sets default values for this actor's properties

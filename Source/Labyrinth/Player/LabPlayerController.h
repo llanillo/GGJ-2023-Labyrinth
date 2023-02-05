@@ -36,6 +36,9 @@ class LABYRINTH_API ALabPlayerController : public APlayerController
 public:
 	UFUNCTION(BlueprintCallable)
 	void ShowMessageHUD(const FString& Message) const;
+	
+	UFUNCTION(BlueprintCallable)
+	void ShowRemainingTorch(const FString& RemainingTorch) const;
 
 	UFUNCTION(BlueprintCallable)
 	void HideMessageHUD() const;
@@ -59,6 +62,6 @@ public:
 	FORCEINLINE UInputAction* GetDashAction() const { return DashAction; }
 
 	FORCEINLINE UInputAction* GetCrouchAction() const { return CrouchAction; }
-	
+
 	FORCEINLINE UInputAction* GetPickupAction() const { return PickupAction; }
 };

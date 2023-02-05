@@ -16,7 +16,10 @@ class LABYRINTH_API UGameOverlay : public UUserWidget
 	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UTextBlock* MessageTextBlock;
 
-	UPROPERTY (BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
+	UTextBlock* RemainingTorchTextBlock;
+
+	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UImage* DamageIndicatorImage;
 
 	UPROPERTY(BlueprintReadOnly, Category = UI, Transient, meta = (BindWidgetAnim, AllowPrivateAccess = true))
@@ -33,9 +36,11 @@ public:
 	void SetMessage(const FText& NewText) const;
 
 	UFUNCTION(BlueprintCallable)
-	void HideMessage() const;
+	void SetRemainingTorchText(const FText& NewText) const;
 	
-protected:
+	UFUNCTION(BlueprintCallable)
+	void HideMessage() const;
 
+protected:
 	virtual void NativeConstruct() override;
 };

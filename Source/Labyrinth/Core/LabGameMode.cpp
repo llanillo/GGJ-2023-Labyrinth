@@ -4,7 +4,7 @@
 #include "LabGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "Labyrinth/Character/SecondLevelGoblin.h"
+#include "Labyrinth/Character/WaveGoblin.h"
 #include "Labyrinth/Obtacle/CustomTriggerBox.h"
 #include "Labyrinth/Obtacle/EndWaveTriggerBox.h"
 
@@ -20,7 +20,7 @@ void ALabGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	checkf(SecondLevelGoblinClass, TEXT("[ALabGameMode - BeginPlay: SecondLevelGoblinClass is not valid]"));
+	checkf(WaveGoblinClass, TEXT("[ALabGameMode - BeginPlay: WaveGoblinClass is not valid]"));
 
 	for (TActorIterator<ATriggerBox> It(GetWorld()); It; ++It)
 	{
@@ -35,10 +35,7 @@ void ALabGameMode::BeginPlay()
 		}
 	}
 
-	// checkf(EndWaveTriggerBox, TEXT("[ALabGameMode - BeginPlay: EndWaveTriggerBox is not valid]"));
-	// checkf(GoblinSpawner, TEXT("[ALabGameMode - BeginPlay: GoblinSpawner is not valid]"));
-	//
-	// StartSecondLevelSpawn();
+	StartSecondLevelSpawn();
 }
 
 void ALabGameMode::Tick(const float DeltaTime)
@@ -48,8 +45,11 @@ void ALabGameMode::Tick(const float DeltaTime)
 
 void ALabGameMode::StartSecondLevelSpawn()
 {
-	const float RandomTime = FMath::RandRange(MinTimeToSpawnSecondLevel, MaxTimeToSpawnSecondLevel);
-	GetWorldTimerManager().SetTimer(SecondLevelHandle, this, &ThisClass::OnGoblinSpawn, RandomTime);
+	if (EndWaveTriggerBox && GoblinSpawner)
+	{
+		const float RandomTime = FMath::RandRange(MinTimeToSpawnSecondLevel, MaxTimeToSpawnSecondLevel);
+		GetWorldTimerManager().SetTimer(SecondLevelHandle, this, &ThisClass::OnGoblinSpawn, RandomTime);
+	}
 }
 
 void ALabGameMode::OnGoblinSpawn()
@@ -69,12 +69,12 @@ void ALabGameMode::OnGoblinSpawn()
 		const FVector RandomSpawnLocation = UKismetMathLibrary::RandomPointInBoundingBox(
 			SpawnPositionOrigin, SpawnPositionExtent);
 
-		if (ASecondLevelGoblin* SecondLevelGoblin = GetWorld()->SpawnActor<ASecondLevelGoblin>(
-			SecondLevelGoblinClass, RandomSpawnLocation, GoblinSpawner->GetActorRotation(),
+		if (AWaveGoblin* SecondLevelGoblin = GetWorld()->SpawnActor<AWaveGoblin>(
+			WaveGoblinClass, RandomSpawnLocation, GoblinSpawner->GetActorRotation(),
 			ActorSpawnParameters))
 		{
 			SecondLevelGoblin->SpawnDefaultController();
-			
+
 			FVector FinalPositionOrigin;
 			FVector FinalPositionExtent;
 
