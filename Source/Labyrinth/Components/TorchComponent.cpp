@@ -32,10 +32,8 @@ void UTorchComponent::IncreaseTorch(const int32 Value)
 {
 	if (bCanIncreaseTorch)
 	{
-		// RemainingFire = FMath::Clamp(RemainingFire + Value, 0, MaximumFire);
-		RemainingFire += Value;
+		RemainingFire = FMath::Clamp(RemainingFire + Value, 0, MaximumFire);
 		bCanIncreaseTorch = false;
-		UE_LOG(LogTemp, Warning, TEXT("increased %d"), RemainingFire);
 
 		GetWorld()->GetTimerManager().SetTimer(IncreaseTorchHandle, this, &ThisClass::OnIncreaseTorchTimeout,
 		                                       IncreaseTorchCooldown, false);

@@ -105,6 +105,7 @@ void ALabCharacter::Interact()
 	if (FireTorchPickup)
 	{
 		IncreaseTorch(FireTorchPickup->GetRechargeValue());
+		FireTorchPickup->Destroy();
 	}
 	else if (WallTorch)
 	{
@@ -200,7 +201,7 @@ void ALabCharacter::SetPickup(AFireTorchPickup* TorchPickup)
 
 	FireTorchPickup = TorchPickup;
 
-	if (FireTorchPickup)
+	if (TorchComponent && FireTorchPickup)
 	{
 		LabPlayerController->ShowMessageHUD("Pick up to recharge torch");
 	}

@@ -6,6 +6,7 @@
 AFireTorchPickup::AFireTorchPickup(): Super()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	RechargeValue = 20;
 }
 
 void AFireTorchPickup::OnCharacterBeginOverlap(ACharacter* CharacterWhoPickup)
