@@ -7,6 +7,8 @@ AWallTorch::AWallTorch()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	CurrentLightStatus = ELightStatus::Els_Off;
+	
 	RootSceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootSceneComponent"));
 	RootComponent = RootSceneComponent;
 	
@@ -40,7 +42,6 @@ void AWallTorch::LightUp()
 {
 	CurrentLightStatus = ELightStatus::Els_On;
 	FireNiagaraComponent->Activate();
-	UE_LOG(LogTemp, Warning, TEXT("[AWallTorch - LightUp: Torch light up]"));
 }
 
 void AWallTorch::OnWallTorchBeginOverlap(ACharacter* CharacterWhoPickup)
