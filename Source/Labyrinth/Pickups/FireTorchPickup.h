@@ -1,28 +1,26 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Obtainable.h"
 #include "FireTorchPickup.generated.h"
 
-class UPickupComponent;
 class ACharacter;
 
 UCLASS(ClassGroup=LAB)
-class LABYRINTH_API AFireTorchPickup : public AActor
+class LABYRINTH_API AFireTorchPickup : public AObtainable
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
-	UPickupComponent* PickupComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
+	UPROPERTY
+	(EditAnywhere, BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	float RechargeValue;
+
+protected:
 
 	/*
 	 * Callbacks
 	 */
-	UFUNCTION()
-	void OnPickUp(ACharacter* CharacterWhoPickup);
+	virtual void OnPickup(ACharacter* CharacterWhoPickup) override;
 
 public:
 	AFireTorchPickup();

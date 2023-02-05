@@ -4,6 +4,8 @@
 #include "Engine/GameInstance.h"
 #include "LabGameInstance.generated.h"
 
+class ACustomTriggerBox;
+
 UCLASS(BlueprintType)
 class LABYRINTH_API ULabGameInstance : public UGameInstance
 {
@@ -27,8 +29,8 @@ public:
 	FORCEINLINE const FName& GetMainMenuLevelName() const { return MainMenuLevelName; }
 
 	FORCEINLINE const FName& GetLabLevelName() const { return LabLevelName; }
-	
+
 	FORCEINLINE const FString& GetWallTorchRechargeMessage() const { return WallTorchRechargeMessage; }
-	
+
 	FORCEINLINE const FString& GetWallTorchLightUpMessage() const { return WallTorchLightUpeMessage; }
 };

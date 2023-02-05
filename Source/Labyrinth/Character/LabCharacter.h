@@ -66,7 +66,7 @@ public:
 	void ReduceTorch(float Value) const;
 
 	UFUNCTION(BlueprintCallable)
-	void SetLastWallTorch(AWallTorch* WallTorch);
+	void SetWallTorch(AWallTorch* WallTorch);
 
 protected:
 	virtual void BeginPlay() override;

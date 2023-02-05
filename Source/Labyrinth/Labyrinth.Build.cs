@@ -17,7 +17,8 @@ public class Labyrinth : ModuleRules
 			"HeadMountedDisplay",
 			"EnhancedInput",
 			"UMG",
-			"Niagara"
+			"Niagara",
+			"AIModule"
 		});
 	}
 }

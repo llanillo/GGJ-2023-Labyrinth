@@ -1,0 +1,40 @@
+﻿#include "SecondLevelGoblin.h"
+
+#include "EngineUtils.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Labyrinth/Volume/CustomVolume.h"
+
+ASecondLevelGoblin::ASecondLevelGoblin()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void ASecondLevelGoblin::BeginPlay()
+{
+	Super::BeginPlay();
+
+	for(TActorIterator<ACustomVolume> It(GetWorld()); It; ++It)
+	{
+		if((*It)->GetTag().IsEqual(ACustomVolume::SecondLevelEnd))
+		{
+			DestinationVolume = *It;
+			break;
+		}
+	}
+}
+
+void ASecondLevelGoblin::Tick(const float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void ASecondLevelGoblin::MoveToFinal() const
+{
+	if (DestinationVolume)
+	{
+		const FVector DestinationPoint = UKismetMathLibrary::RandomPointInBoundingBox(
+			DestinationVolume->GetActorLocation(), DestinationVolume->GetBounds().BoxExtent);
+		UAIBlueprintHelperLibrary::SimpleMoveToLocation(GetController(), DestinationPoint);
+	}
+}

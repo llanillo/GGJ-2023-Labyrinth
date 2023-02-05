@@ -37,7 +37,7 @@ void UTorchComponent::DecreaseTorch(const float Value)
 		return;
 	}
 
-	if (ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
+	if (const ALabGameMode* LabGameMode = GetWorld()->GetAuthGameMode<ALabGameMode>())
 	{
 		LabGameMode->GameOver();
 	}

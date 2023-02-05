@@ -16,7 +16,7 @@ class LABYRINTH_API ALabHUD : public AHUD
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	TSubclassOf<UGameOverlay> GameOverlayClass;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	UGameOverlay* GameOverlay;
 
 public:

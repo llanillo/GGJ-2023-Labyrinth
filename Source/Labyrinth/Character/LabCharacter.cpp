@@ -2,16 +2,12 @@
 
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/SphereComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Labyrinth/LabyrinthGameMode.h"
 #include "Labyrinth/Components/TorchComponent.h"
 #include "Labyrinth/Core/LabGameInstance.h"
 #include "Labyrinth/Environment/WallTorch.h"
-#include "Labyrinth/Pickups/FireTorchPickup.h"
 #include "Labyrinth/Pickups/Torch.h"
 #include "Labyrinth/Player/LabPlayerController.h"
-#include "Labyrinth/UI/LabHUD.h"
 
 
 ALabCharacter::ALabCharacter()
@@ -125,14 +121,14 @@ void ALabCharacter::ReduceTorch(const float Value) const
 	}
 }
 
-void ALabCharacter::SetLastWallTorch(AWallTorch* WallTorch)
+void ALabCharacter::SetWallTorch(AWallTorch* WallTorch)
 {
-	ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller);
+	const ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller);
 	checkf(LabPlayerController, TEXT("[ALabCharacter - SetLastWallTorch: PlayerController is not valid]"));
 
 	if (WallTorch)
 	{
-		ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>();
+		const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>();
 		checkf(LabGameInstance, TEXT("[ALabCharacter - SetLastWallTorch: GameInstance is not valid]"));
 
 		if (WallTorch->GetWallTorchStatus() == ELightStatus::Els_On)

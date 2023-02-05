@@ -19,7 +19,7 @@ class LABYRINTH_API UGameOverlay : public UUserWidget
 	UPROPERTY (BlueprintReadOnly, Category = UI, meta = (BindWidget, AllowPrivateAccess = true))
 	UImage* DamageIndicatorImage;
 
-	UPROPERTY(BlueprintReadOnly, Category = UI, meta = (BindWidgetAnim, AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = UI, Transient, meta = (BindWidgetAnim, AllowPrivateAccess = true))
 	UWidgetAnimation* DamageIndicatorAnim;
 
 public:

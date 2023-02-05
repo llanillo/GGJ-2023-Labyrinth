@@ -1,9 +1,7 @@
 ﻿#include "WallTorch.h"
-#include "Labyrinth/Components/PickupComponent.h"
-
 #include "NiagaraComponent.h"
-#include "Components/SphereComponent.h"
 #include "Labyrinth/Character/LabCharacter.h"
+#include "Labyrinth/Components/PickupComponent.h"
 
 AWallTorch::AWallTorch()
 {
@@ -27,7 +25,7 @@ void AWallTorch::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AWallTorch::Tick(float DeltaTime)
+void AWallTorch::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
@@ -50,7 +48,7 @@ void AWallTorch::OnWallTorchBeginOverlap(ACharacter* CharacterWhoPickup)
 {
 	if (ALabCharacter* LabCharacter = Cast<ALabCharacter>(CharacterWhoPickup))
 	{
-		LabCharacter->SetLastWallTorch(this);
+		LabCharacter->SetWallTorch(this);
 	}
 }
 
@@ -58,6 +56,6 @@ void AWallTorch::OnWallTorchEndOverlap(ACharacter* CharacterWhoPickup)
 {
 	if (ALabCharacter* LabCharacter = Cast<ALabCharacter>(CharacterWhoPickup))
 	{
-		LabCharacter->SetLastWallTorch(nullptr);
+		LabCharacter->SetWallTorch(nullptr);
 	}
 }
