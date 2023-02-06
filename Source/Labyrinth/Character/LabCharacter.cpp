@@ -29,6 +29,7 @@ ALabCharacter::ALabCharacter()
 	FirstPersonMeshComponent->SetCollisionResponseToAllChannels(ECR_Ignore); // TODO: Cambiar¿?¿
 	FirstPersonMeshComponent->SetupAttachment(CameraComponent);
 	FirstPersonMeshComponent->SetRelativeLocation({-30.f, 0.f, -150.f});
+	FirstPersonMeshComponent->bOnlyOwnerSee = false;
 }
 
 void ALabCharacter::BeginPlay()
