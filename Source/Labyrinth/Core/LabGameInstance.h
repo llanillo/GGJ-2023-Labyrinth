@@ -26,9 +26,9 @@ class LABYRINTH_API ULabGameInstance : public UGameInstance
 public:
 	ULabGameInstance();
 
-	FORCEINLINE const FName& GetMainMenuLevelName() const { return MainMenuLevelName; }
+	FORCEINLINE const FName& GetMenuLevelName() const { return MainMenuLevelName; }
 
-	FORCEINLINE const FName& GetLabLevelName() const { return LabLevelName; }
+	FORCEINLINE const FName& GetPrincipalLevelName() const { return LabLevelName; }
 
 	FORCEINLINE const FString& GetWallTorchRechargeMessage() const { return WallTorchRechargeMessage; }
 

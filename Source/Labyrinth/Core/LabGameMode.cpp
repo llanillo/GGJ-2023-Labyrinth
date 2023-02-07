@@ -13,7 +13,8 @@ ALabGameMode::ALabGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	GameOverDelay = 3.f;
+	bGameOver = false;
+	GameOverDelay = 2.f;
 	MinTimeToSpawnSecondLevel = 1.f;
 	MaxTimeToSpawnSecondLevel = 3.f;
 }
@@ -100,6 +101,12 @@ void ALabGameMode::OnGoblinSpawn()
 
 void ALabGameMode::GameOver()
 {
+	if(bGameOver)
+	{
+		return;
+	}
+
+	bGameOver = true;
 	ALabPlayerController* LocalController = Cast<ALabPlayerController>(
 		UGameplayStatics::GetPlayerController(this, 0));
 	check(LocalController);
@@ -117,6 +124,6 @@ void ALabGameMode::OnGameOverTimeout()
 
 	if (const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>())
 	{
-		UGameplayStatics::OpenLevel(this, LabGameInstance->GetMainMenuLevelName(), true);
+		UGameplayStatics::OpenLevel(this, LabGameInstance->GetMenuLevelName());
 	}
 }

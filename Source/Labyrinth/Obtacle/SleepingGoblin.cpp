@@ -4,7 +4,7 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-ASleepingGoblin::ASleepingGoblin()
+ASleepingGoblin::ASleepingGoblin() : Super()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -12,13 +12,8 @@ ASleepingGoblin::ASleepingGoblin()
 
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	
-	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-	SphereComponent->SetSphereRadius(300.f);
-	SphereComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
-	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	SphereComponent->SetupAttachment(RootComponent);
-	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnSphereBeginOverlap);
-	SphereComponent->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnSphereEndOverlap);
+	GetSphereComponent()->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnSphereBeginOverlap);
+	GetSphereComponent()->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnSphereEndOverlap);
 }
 
 void ASleepingGoblin::BeginPlay()

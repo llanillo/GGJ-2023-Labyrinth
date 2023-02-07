@@ -31,6 +31,9 @@ class LABYRINTH_API ALabGameMode : public AGameModeBase
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float GameOverDelay;
 
+	UPROPERTY(BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	bool bGameOver;
+	
 	UPROPERTY()
 	FTimerHandle SecondLevelHandle;
 
@@ -44,7 +47,7 @@ class LABYRINTH_API ALabGameMode : public AGameModeBase
 	void OnGoblinSpawn();
 
 	UFUNCTION()
-	void OnGameOverTimeout() ;
+	void OnGameOverTimeout();
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -54,7 +57,7 @@ public:
 	void FinishGoblinWave();
 
 	UFUNCTION(BlueprintCallable)
-	void GameOver() ;
+	void GameOver();
 
 protected:
 	virtual void BeginPlay() override;

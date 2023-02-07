@@ -48,7 +48,7 @@ void ALabHUD::ShowGameOver() const
 {
 	if (GameOverlay)
 	{
-		GameOverlay->StartJumpScareAnimation();
+		GameOverlay->ShowGameOver();
 	}
 }
 

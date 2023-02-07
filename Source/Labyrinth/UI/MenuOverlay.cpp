@@ -39,7 +39,7 @@ void UMenuOverlay::OnStartButtonClicked()
 {
 	if (const ULabGameInstance* LabGameInstance = GetGameInstance<ULabGameInstance>())
 	{
-		UGameplayStatics::OpenLevel(this, LabGameInstance->GetLabLevelName());
+		UGameplayStatics::OpenLevel(this, LabGameInstance->GetPrincipalLevelName());
 	}
 }
 

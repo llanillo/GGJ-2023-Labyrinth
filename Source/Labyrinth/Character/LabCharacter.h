@@ -33,7 +33,6 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	/*
 	 * Game
 	 */
-
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	AWallTorch* WallTorch;
 
@@ -45,19 +44,27 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	 */
 	UPROPERTY()
 	FTimerHandle DashHandle;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashCooldown;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	float DashForce;
 
 	UPROPERTY(BlueprintReadOnly, Category = Game, meta = (AllowPrivateAccess = true))
 	bool bCanDash;
 
+	/*
+	 * Callbacks
+	 */
 	UFUNCTION()
 	void OnDashTimeout();
-	
+
+	UFUNCTION()
+	void OnCharacterReceiveDamage(AActor* DamagedActor, float Damage,
+	                              const UDamageType* DamageType, AController* InstigatedBy,
+	                              AActor* DamageCauser);
+
 	/*
 	 * Character actions
 	 */

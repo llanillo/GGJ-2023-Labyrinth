@@ -16,7 +16,7 @@ ALabCharacter::ALabCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
-	DashForce = 600.f;
+	DashForce = 300.f;
 	DashCooldown = 3.f;
 	bCanDash = true;
 
@@ -26,10 +26,12 @@ ALabCharacter::ALabCharacter()
 	CameraComponent->bUsePawnControlRotation = true;
 
 	FirstPersonMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonMeshComponent"));
-	FirstPersonMeshComponent->SetCollisionResponseToAllChannels(ECR_Ignore); // TODO: Cambiar¿?¿
+	FirstPersonMeshComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	FirstPersonMeshComponent->SetupAttachment(CameraComponent);
 	FirstPersonMeshComponent->SetRelativeLocation({-30.f, 0.f, -150.f});
-	FirstPersonMeshComponent->bOnlyOwnerSee = false;
+	FirstPersonMeshComponent->bOwnerNoSee = true;
+
+	OnTakeAnyDamage.AddUniqueDynamic(this, &ThisClass::OnCharacterReceiveDamage);
 }
 
 void ALabCharacter::BeginPlay()
@@ -75,13 +77,18 @@ void ALabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 void ALabCharacter::OnDashTimeout()
 {
-
-	if(DashHandle.IsValid())
+	if (DashHandle.IsValid())
 	{
 		GetWorldTimerManager().ClearTimer(DashHandle);
 	}
-	
+
 	bCanDash = true;
+}
+
+void ALabCharacter::OnCharacterReceiveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
+                                             AController* InstigatedBy, AActor* DamageCauser)
+{
+	ReduceTorch(Damage);
 }
 
 void ALabCharacter::Dash()
@@ -89,12 +96,11 @@ void ALabCharacter::Dash()
 	if (Controller && bCanDash)
 	{
 		bCanDash = false;
-		UE_LOG(LogTemp, Warning, TEXT("DASH"));
-		
+
 		FVector MovementDirection = GetLastMovementInputVector();
 		MovementDirection.Normalize();
-		
-		LaunchCharacter(MovementDirection *  DashForce, false, false);
+
+		LaunchCharacter(MovementDirection * DashForce, false, false);
 
 		GetWorldTimerManager().SetTimer(DashHandle, this, &ThisClass::OnDashTimeout, DashCooldown);
 	}
@@ -138,7 +144,7 @@ void ALabCharacter::Interact()
 	{
 		const ELightStatus WallTorchStatus = WallTorch->GetWallTorchStatus();
 
-	if (WallTorchStatus == ELightStatus::Els_On)
+		if (WallTorchStatus == ELightStatus::Els_On)
 		{
 			IncreaseTorch(100);
 		}
@@ -151,21 +157,10 @@ void ALabCharacter::Interact()
 
 void ALabCharacter::EquipTorch(ATorch* Torch)
 {
-	//Aqui estas creando dos veces el TorchComponent, una con NewObject y otra con AddComponentByClass,
-	//dejo comentado el codigo viejo
-	/*TorchComponent = NewObject<UTorchComponent>(this, UTorchComponent::StaticClass(), TEXT("TorchComponent"));
-
-	if (TorchComponent && Torch)
-	{
-		AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false);
-		TorchComponent->EquipTorch(Torch);
-
-		BP_UpdateTorchAnimation();
-	}*/
-
-	TorchComponent = Cast<UTorchComponent>(AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false));
+	TorchComponent = Cast<UTorchComponent>(
+		AddComponentByClass(UTorchComponent::StaticClass(), false, GetActorTransform(), false));
 	AddInstanceComponent(TorchComponent);
-	
+
 	if (TorchComponent && Torch)
 	{
 		TorchComponent->EquipTorch(Torch);
