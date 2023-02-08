@@ -34,7 +34,7 @@ void UGameOverlay::ShowGameOver() const
 	GameOverText->SetVisibility(ESlateVisibility::Visible);
 }
 
-void UGameOverlay::SetRemainingTorchText(const FText& NewText) const
+void UGameOverlay::SetRemainingFire(const FText& NewText) const
 {
 	if (RemainingTorchTextBlock)
 	{
@@ -55,4 +55,12 @@ void UGameOverlay::SetMessage(const FText& NewText) const
 void UGameOverlay::HideMessage() const
 {
 	MessageTextBlock->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UGameOverlay::HideRemainingFire() const
+{
+	if(RemainingTorchTextBlock)
+	{
+		RemainingTorchTextBlock->SetVisibility(ESlateVisibility::Hidden);
+	}
 }

@@ -62,15 +62,15 @@ void ALabPlayerController::ShowMessageHUD(const FString& Message)
 	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
 	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
 
-	GameHUD->ShowMessage(Message);
+	GameHUD->ShowCentralScreenMessage(Message);
 }
 
-void ALabPlayerController::ShowRemainingTorch(const FString& RemainingTorch)
+void ALabPlayerController::ShowRemainingTorch(const int32 RemainingTorch)
 {
 	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
 	checkf(GameHUD, TEXT("[ALabPlayerController - ShowMessageHUD: HUD is not valid]"));
 
-	GameHUD->ShowRemainingText(RemainingTorch);
+	GameHUD->ShowRemainingTorch(RemainingTorch);
 }
 
 void ALabPlayerController::ShowGameOver()

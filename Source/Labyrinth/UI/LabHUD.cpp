@@ -61,7 +61,7 @@ void ALabHUD::ShowGameOver() const
 	}
 }
 
-void ALabHUD::ShowMessage(const FString& Message) const
+void ALabHUD::ShowCentralScreenMessage(const FString& Message) const
 {
 	if (GameOverlay)
 	{
@@ -70,11 +70,18 @@ void ALabHUD::ShowMessage(const FString& Message) const
 	}
 }
 
-void ALabHUD::ShowRemainingText(const FString& Message) const
+void ALabHUD::ShowRemainingTorch(const int32 RemainingTorch) const
 {
 	if (GameOverlay)
 	{
-		const FText TorchText = FText::FromString(Message);
-		GameOverlay->SetRemainingTorchText(TorchText);
+		if (RemainingTorch > 0)
+		{
+			const FText TorchText = FText::FromString(FString::FromInt(RemainingTorch));
+			GameOverlay->SetRemainingFire(TorchText);
+		}
+		else
+		{
+			GameOverlay->HideRemainingFire();
+		}
 	}
 }

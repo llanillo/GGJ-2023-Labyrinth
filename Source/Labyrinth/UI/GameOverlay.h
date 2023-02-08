@@ -30,10 +30,13 @@ public:
 	void SetMessage(const FText& NewText) const;
 
 	UFUNCTION(BlueprintCallable)
-	void SetRemainingTorchText(const FText& NewText) const;
+	void SetRemainingFire(const FText& NewText) const;
 
 	UFUNCTION(BlueprintCallable)
 	void HideMessage() const;
+	
+	UFUNCTION(BlueprintCallable)
+	void HideRemainingFire() const;
 
 protected:
 	virtual bool Initialize() override;

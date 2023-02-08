@@ -60,8 +60,9 @@ void UTorchComponent::DecreaseTorch(const int32 Value)
 	ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(OwnerCharacter->Controller);
 	checkf(LabPlayerController, TEXT("[UTorchComponent - DecreaseTorch: PlayerController is not valid]"));
 
-	LabPlayerController->ShowRemainingTorch(FString::FromInt(RemainingFire));
+	LabPlayerController->ShowRemainingTorch(RemainingFire);
 
+	// Player is still alive if remaining fire is greater than zero
 	if (RemainingFire > 0.f)
 	{
 		return;

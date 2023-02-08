@@ -49,7 +49,7 @@ public:
 	void ShowMessageHUD(const FString& Message);
 
 	UFUNCTION(BlueprintCallable)
-	void ShowRemainingTorch(const FString& RemainingTorch);
+	void ShowRemainingTorch(int32 RemainingTorch);
 
 	UFUNCTION(BlueprintCallable)
 	void ShowGameOver();

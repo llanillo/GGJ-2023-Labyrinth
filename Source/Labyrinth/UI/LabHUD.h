@@ -37,10 +37,10 @@ public:
 	void ShowGameOver() const;
 
 	UFUNCTION(BlueprintCallable)
-	void ShowMessage(const FString& Message) const;
+	void ShowCentralScreenMessage(const FString& Message) const;
 
 	UFUNCTION(BlueprintCallable)
-	void ShowRemainingText(const FString& Message) const;
+	void ShowRemainingTorch(int32 RemainingTorch) const;
 
 	UFUNCTION(BlueprintCallable)
 	void HideMessage() const;
