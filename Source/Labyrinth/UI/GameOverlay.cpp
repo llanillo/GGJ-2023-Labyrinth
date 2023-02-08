@@ -10,16 +10,6 @@ bool UGameOverlay::Initialize()
 		return false;
 	}
 
-	if (DamageIndicatorImage)
-	{
-		DamageIndicatorImage->SetVisibility(ESlateVisibility::Hidden);
-	}
-
-	if (JumpScareImage)
-	{
-		JumpScareImage->SetVisibility(ESlateVisibility::Hidden);
-	}
-
 	if (MessageTextBlock)
 	{
 		MessageTextBlock->SetVisibility(ESlateVisibility::Hidden);
@@ -35,44 +25,9 @@ bool UGameOverlay::Initialize()
 		GameOverText->SetVisibility(ESlateVisibility::Hidden);
 	}
 
-	if (JumpScareAnim)
-	{
-		FWidgetAnimationDynamicEvent AnimationDynamicEvent;
-		AnimationDynamicEvent.BindDynamic(this, &ThisClass::OnJumpScareAnimFinished);
-		BindToAnimationFinished(JumpScareAnim, AnimationDynamicEvent);
-	}
-
 	return true;
 }
 
-void UGameOverlay::OnDamageIndicatorAnimFinished()
-{
-	DamageIndicatorImage->SetVisibility(ESlateVisibility::Hidden);
-	PlayAnimationReverse(DamageIndicatorAnim);
-}
-
-void UGameOverlay::OnJumpScareAnimFinished()
-{
-	JumpScareImage->SetVisibility(ESlateVisibility::Hidden);
-}
-
-void UGameOverlay::StartDamageIndicatorAnimation()
-{
-	if (!IsAnimationPlaying(DamageIndicatorAnim))
-	{
-		DamageIndicatorImage->SetVisibility(ESlateVisibility::Visible);
-		PlayAnimation(DamageIndicatorAnim, 0.f);
-	}
-}
-
-void UGameOverlay::StartJumpScareAnimation()
-{
-	if (!IsAnimationPlaying(JumpScareAnim))
-	{
-		JumpScareImage->SetVisibility(ESlateVisibility::Visible);
-		PlayAnimation(JumpScareAnim);
-	}
-}
 
 void UGameOverlay::ShowGameOver() const
 {

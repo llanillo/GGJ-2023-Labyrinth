@@ -12,6 +12,7 @@ class UTorchComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
 class USphereComponent;
+class UCameraShakeBase;
 
 UCLASS()
 class LABYRINTH_API ALabCharacter : public ACharacter
@@ -42,6 +43,9 @@ class LABYRINTH_API ALabCharacter : public ACharacter
 	/*
 	 * Dependencies
 	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	TSubclassOf<UCameraShakeBase> CameraShakeClass;
+	
 	UPROPERTY()
 	FTimerHandle DashHandle;
 

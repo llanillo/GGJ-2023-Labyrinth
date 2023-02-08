@@ -40,6 +40,15 @@ void ALabPlayerController::SetupInputComponent()
 	}
 }
 
+void ALabPlayerController::ShowDamageIndicator(const TSubclassOf<UCameraShakeBase>& CameraShakeBase)
+{
+	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();
+	checkf(GameHUD, TEXT("[ALabPlayerController - ShowDamageIndicator: HUD is not valid]"));
+
+	PlayerCameraManager->StartCameraShake(CameraShakeBase);
+	GameHUD->ShowDamageIndicator();
+}
+
 void ALabPlayerController::ShowJumpScare()
 {
 	GameHUD = GameHUD ? GameHUD : GetHUD<ALabHUD>();

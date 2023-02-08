@@ -7,6 +7,7 @@
 #include "LabHUD.generated.h"
 
 class UGameOverlay;
+class UEventOverlay;
 
 UCLASS()
 class LABYRINTH_API ALabHUD : public AHUD
@@ -19,9 +20,18 @@ class LABYRINTH_API ALabHUD : public AHUD
 	UPROPERTY(BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
 	UGameOverlay* GameOverlay;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	TSubclassOf<UEventOverlay> EventOverlayClass;
+
+	UPROPERTY(BlueprintReadOnly, Category = Config, meta = (AllowPrivateAccess = true))
+	UEventOverlay* EventOverlay;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	void ShowJumpScare() const;
+
+	UFUNCTION(BlueprintCallable)
+	void ShowDamageIndicator() const;
 	
 	UFUNCTION(BlueprintCallable)
 	void ShowGameOver() const;
@@ -31,9 +41,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ShowRemainingText(const FString& Message) const;
-
-	UFUNCTION(BlueprintCallable)
-	static void ShowInitialStory();
 
 	UFUNCTION(BlueprintCallable)
 	void HideMessage() const;

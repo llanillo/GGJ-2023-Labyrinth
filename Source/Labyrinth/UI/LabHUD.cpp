@@ -1,5 +1,6 @@
 ﻿#include "LabHUD.h"
 
+#include "EventOverlay.h"
 #include "Blueprint/UserWidget.h"
 #include "Labyrinth/UI/GameOverlay.h"
 
@@ -12,20 +13,20 @@ void ALabHUD::BeginPlay()
 {
 	Super::BeginPlay();
 	checkf(GameOverlayClass, TEXT("[ALabHUD - BeginPlay: GameOverlayClass is not valid]"));
+	checkf(EventOverlayClass, TEXT("[ALabHUD - BeginPlay: EventOverlayClass is not valid]"));
 
 	GameOverlay = CreateWidget<UGameOverlay>(GetOwningPlayerController(), GameOverlayClass);
+	EventOverlay = CreateWidget<UEventOverlay>(GetOwningPlayerController(), EventOverlayClass);
 	checkf(GameOverlay, TEXT("[ALabHUD - BeginPlay: GameOverlay is not valid]"));
+	checkf(GameOverlay, TEXT("[ALabHUD - BeginPlay: EventOverlay is not valid]"));
 
 	GameOverlay->AddToViewport();
+	EventOverlay->AddToViewport();
 }
 
 void ALabHUD::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-}
-
-void ALabHUD::ShowInitialStory()
-{
 }
 
 void ALabHUD::HideMessage() const
@@ -38,9 +39,17 @@ void ALabHUD::HideMessage() const
 
 void ALabHUD::ShowJumpScare() const
 {
-	if (GameOverlay)
+	if (EventOverlay)
 	{
-		GameOverlay->StartJumpScareAnimation();
+		EventOverlay->StartJumpScareAnimation();
+	}
+}
+
+void ALabHUD::ShowDamageIndicator() const
+{
+	if (EventOverlay)
+	{
+		EventOverlay->StartDamageIndicatorAnimation();
 	}
 }
 

@@ -38,6 +38,8 @@ void ALabCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	checkf(CameraShakeClass, TEXT("[ALabCharacter - BeginPlay: CameraShakeClass is not valid]"));
+
 	const FInputModeGameOnly InputModeGameOnly;
 
 	APlayerController* PlayerController = Cast<APlayerController>(Controller);
@@ -89,6 +91,11 @@ void ALabCharacter::OnCharacterReceiveDamage(AActor* DamagedActor, float Damage,
                                              AController* InstigatedBy, AActor* DamageCauser)
 {
 	ReduceTorch(Damage);
+
+	if(ALabPlayerController* LabPlayerController = Cast<ALabPlayerController>(Controller))
+	{
+		LabPlayerController->ShowDamageIndicator(CameraShakeClass);
+	}
 }
 
 void ALabCharacter::Dash()

@@ -6,6 +6,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class UCameraShakeBase;
 class ALabHUD;
 
 UCLASS()
@@ -38,6 +39,9 @@ class LABYRINTH_API ALabPlayerController : public APlayerController
 	UInputAction* InteractAction;
 
 public:
+	UFUNCTION(BlueprintCallable)
+	void ShowDamageIndicator(const TSubclassOf<UCameraShakeBase>& CameraShakeBase);
+	
 	UFUNCTION(BlueprintCallable)
 	void ShowJumpScare();
 
