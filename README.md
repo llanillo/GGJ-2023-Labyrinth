@@ -44,16 +44,16 @@ Any feedback is appreciated.
 ## Credits
 Thanks to the whole team, **wonderful people with amazing skills**
 
-[Environment Artist](https://www.instagram.com/onlinelova_/)
+[Environment Artist - Lucas Esposto](https://github.com/lesposto)
 
-[Characters Artist](https://www.linkedin.com/in/fede-gramajo-68741a143/)
+[Characters Artist - Capovilla Fernando](https://github.com/fercapovilla)
 
-[Music/Sound](https://www.instagram.com/fonts.tg/)
+[Music/Sound - Fonts Augusto](https://www.instagram.com/fonts.tg/)
 
-[Game Design](https://linkedin.com/in/maria-fabiola-vilera-anuares-05730b225)
+[Game Design - Vilera Fabiola](https://linkedin.com/in/maria-fabiola-vilera-anuares-05730b225)
 
-[Game Design](Juan)
+[Game Design - Gallardo Juan](#)
 
-[Programming](https://github.com/MarianoGirbau)
+[Programming - Girbau Mariano](https://github.com/MarianoGirbau)
 
-[Programming](https://github.com/FNMariani)
+[Programming - Mariani Facundo](https://github.com/FNMariani)
