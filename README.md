@@ -28,9 +28,9 @@ Download and play it [here](https://globalgamejam.org/2023/games/nuwasir-4)
 
 
 ## Screenshots
-![Labyrinth - Gameplay](Screenshots/Gameplay_1.png)
-![Labyrinth - Gameplay](Screenshots/Gameplay_2.png)
-![Labyrinth - Gameplay](Screenshots/Gameplay_3.png)
+![Labyrinth - Gameplay](Screenshots/Gameplay1.png)
+![Labyrinth - Gameplay](Screenshots/Gameplay2.png)
+![Labyrinth - Gameplay](Screenshots/Gameplay3.png)
 
 ## Credits
 Thanks to the whole team, **wonderful people with amazing skills**
