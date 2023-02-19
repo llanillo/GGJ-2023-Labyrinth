@@ -24,7 +24,7 @@ The art of your game showcases cultural aspects of places you like.
 
 1. Download and install all the requirements
 2. Git clone it
-3. Open it with Visual Studio and compile it
+3. Compile it with Visual Studio 2022
 4. Open it with Unreal Engine
 
 ```bash
